@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Ophelias Management</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
+    <h1>Ophelias</h1>
+    <div class='main'>
+    </div>
+<!-- Customer Tab -->
+    <div class='guest'>
+      <div class='guest-search__form'>
+        <form>    
+          <label for='guest-search'>
+            <input type='text' class='guest-search' placeholder='Search A Guest'>
+          </label>
+        </form>
+        <button>Search Guest</button>
+      </div>
+      
+      <button class='add-guest__button'>Add Guest</button>
+      
+      <div class='add-guest__form'>
+        <form>
+          <label for='add-guest'>
+            <input type='text' class='add-guest' placeholder='New Guest Name'>
+          </label>
+        </form>
+        <button class='submit-new-guest__button'>Submit Guest Name</button>
+      </div>
+    </div>
+<!-- Order Tab -->
+    <div class='orders'>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    </div>
+<!-- Room Tab -->
+    <div class='rooms'>
 
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    </div>
   </body>
 </html>

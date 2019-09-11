@@ -1,13 +1,56 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
 
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import domUpdates from '../src/domUpdates';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+    .then(function(response) {
+        return response.json
+    });
+let rooms = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
+    .then(function(response) {
+        return response.json
+    });
+let bookings = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+    .then(function(response) {
+        return response.json
+    });
+let roomServices = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices')
+    .then(function(response) {
+        return response.json
+    });
 
-console.log('This is the JavaScript entry file - your code begins here.');
+let allData = {'users': {}, 'rooms': {}, 'bookings': {}, 'roomServices': {}}
+Promise.all([users, rooms, bookings, roomServices])
+    .then(function(values) {
+        allData['users'] = values[0];
+        allData['rooms'] = values[1];
+        allData['bookings'] = values[2];
+        allData['roomServices'] = values[3];
+        return allData
+    });
+
+$(document).ready(() => {
+    $('.add-guest__form').hide();
+    $('.add-guest__button').click(function() {
+        domUpdates.showGuestSubmission();
+    });
+
+});
+
+
+
+
+
+
+// // MENU
+// let menu = new BloomingMenu({
+//     itemsNum: 4
+// });
+
+// menu.render();
+// menu.props.elements.items.forEach(function (item, index) {
+//     item.addEventListener('click', function () {
+//         console.log('Item #' + index + 'was clicked')
+//     })
+// })
