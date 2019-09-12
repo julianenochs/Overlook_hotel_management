@@ -8,7 +8,12 @@ class Manager {
         this.currentGuest = this.data.users.find(guest => {
             return guest.name === name
         });
-        return this.currentGuest
+        if (this.currentGuest !== undefined) {
+            domUpdates.noGuestFoundError();
+        } else {
+            domUpdates.showGuestInfo();
+            return this.currentGuest
+        }
     }
 
     addGuest(name) {

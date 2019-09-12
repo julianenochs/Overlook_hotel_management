@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
+import Manager from '../src/Manager';
 
 let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(function(response) {
@@ -31,9 +32,15 @@ Promise.all([users, rooms, bookings, roomServices])
     });
 
 $(document).ready(() => {
-    $('.add-guest__form').hide();
+    $('.main').hide();
+    $('.splash-button').click(function() {
+        domUpdates.showMain();
+    });
     $('.add-guest__button').click(function() {
         domUpdates.showGuestSubmission();
+    });
+    $('.guest-search__button').click(function() {
+        Manager.searchGuest();
     });
 
 });

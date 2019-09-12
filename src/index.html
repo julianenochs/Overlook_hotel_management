@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap" rel="stylesheet">
     <title>Ophelias Management</title>
   </head>
   <body>
-    <h1>Ophelias</h1>
+    <div class='splash-page'>
+      <h1 class='splash-header'>Welcome To Ophelias Hotel Management</h1>
+      <button class='splash-button'>Enter Here</button>
+    </div>
     <div class='main'>
-    </div>
-<!-- Customer Tab -->
-    <div class='guest'>
-      <div class='guest-search__form'>
-        <form>    
-          <label for='guest-search'>
-            <input type='text' class='guest-search' placeholder='Search A Guest'>
-          </label>
-        </form>
-        <button>Search Guest</button>
+    <h1>Ophelias</h1>
+      <!-- Customer Tab -->
+      <div class='guest'>
+        <div class='guest-search__form'>
+          <div class='no-guest-found__error'>
+            <p>
+              Sorry, we couldn't find an account with that name.
+            </p>
+          </div>
+          <form>    
+            <label for='guest-search'>
+              <input type='text' class='guest-search' placeholder='Search A Guest'>
+            </label>
+          </form>
+          <button class='guest-search__button'>Search Guest</button>
+        </div>
+        
+        <button class='add-guest__button'>Add Guest</button>
+        
+        <div class='add-guest__form'>
+          <form>
+            <label for='add-guest'>
+              <input type='text' class='add-guest' placeholder='New Guest Name'>
+            </label>
+          </form>
+          <button class='submit-new-guest__button'>Submit Guest Name</button>
+        </div>
       </div>
-      
-      <button class='add-guest__button'>Add Guest</button>
-      
-      <div class='add-guest__form'>
-        <form>
-          <label for='add-guest'>
-            <input type='text' class='add-guest' placeholder='New Guest Name'>
-          </label>
-        </form>
-        <button class='submit-new-guest__button'>Submit Guest Name</button>
+      <!-- Order Tab -->
+      <div class='orders'>
+        
+      </div>
+      <!-- Room Tab -->
+      <div class='rooms'>
+        
       </div>
     </div>
-<!-- Order Tab -->
-    <div class='orders'>
-
-    </div>
-<!-- Room Tab -->
-    <div class='rooms'>
-
-    </div>
-  </body>
+    </body>
 </html>

@@ -1,12 +1,11 @@
 class Rooms {
-    constructor(data, bookingsData) {
+    constructor(data) {
         this.data = data;
-        this.bookingsData = bookingsData
 // date
     }
 
     getAvailableRoomsToday(date) {
-        let availableBookings = this.bookingsData.bookings.filter(booking => {
+        let availableBookings = this.data.bookings.filter(booking => {
             return booking.date !== date
         })
         // console.log(availableBookings)
@@ -16,14 +15,25 @@ class Rooms {
     }
 
     getDailyBookings(date) {
-        let dailyBookings = this.bookingsData.bookings.filter(booking => {
+        let dailyBookings = this.data.bookings.filter(booking => {
             return booking.date === date
         })
         return dailyBookings
     }
 
-    todaysTotalRevenue() {
-        
+    todaysTotalRevenue(date) {
+        let todaysBookings = this.data.bookings.filter(bookings => {
+            return bookings.date === date
+        }).map(room => {return room.roomNumber})
+        let rooms = todaysBookings.forEach(roomNumber => {
+            this.data.rooms.filter(room => {
+                return room.number === roomNumber
+            }).reduce((totalPrice, room) => {
+                totalPrice += room.costPerNight
+                return totalPrice
+            }, 0);
+            return rooms
+        });
     }
     // getDateWithMostBookings()
     // getDateWithLeastBookings()
