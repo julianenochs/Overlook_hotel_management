@@ -19,5 +19,5 @@ describe('Manager', () => {
 
     it('should be able to add a guest', () => {
         expect(manager.addGuest('Julian Enochs')).to.eql('Julian Enochs')
-    })
+    });
 });

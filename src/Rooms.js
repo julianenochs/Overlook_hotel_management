@@ -1,43 +1,42 @@
 class Rooms {
-    constructor(data) {
+    constructor(data, dailyBookings) {
         this.data = data;
+        this.dailyBookings = dailyBookings;
 // date
     }
 
     getAvailableRoomsToday(date) {
-        let availableBookings = this.data.bookings.filter(booking => {
+        let availableBookings = this.data.bookings.bookings.filter(booking => {
             return booking.date !== date
         })
-        // console.log(availableBookings)
-        // availableBookings.forEach(room => {
-        // 
-        // })
+        return availableBookings
     }
 
     getDailyBookings(date) {
-        let dailyBookings = this.data.bookings.filter(booking => {
+        this.dailyBookings = this.data.bookings.bookings.filter(booking => {
             return booking.date === date
         })
-        return dailyBookings
+        return this.dailyBookings
     }
 
-    todaysTotalRevenue(date) {
-        let todaysBookings = this.data.bookings.filter(bookings => {
-            return bookings.date === date
-        }).map(room => {return room.roomNumber})
-        let rooms = todaysBookings.forEach(roomNumber => {
-            this.data.rooms.filter(room => {
-                return room.number === roomNumber
-            }).reduce((totalPrice, room) => {
-                totalPrice += room.costPerNight
-                return totalPrice
-            }, 0);
-            return rooms
-        });
+    todaysTotalRevenue() {
+        return this.data.rooms.rooms.reduce((acc, room) => {
+            this.dailyBookings.forEach(bookedRoom => {
+                if (bookedRoom.roomNumber === room.number) {
+                    acc += room.costPerNight
+                }
+            })
+            return acc
+        }, 0)
     }
-    // getDateWithMostBookings()
-    // getDateWithLeastBookings()
-    // roomsOccupiedToday() ^ I think it's the same functionality as getDailyBookings
+
+    getDateWithMostBookings() {
+        // this.data.bookings.forEach(booking => {
+        //     let month = booking.date.split('/')[1]
+        // })
+    }
 }
-
 export default Rooms;
+
+            // getDateWithLeastBookings()
+            // roomsOccupiedToday() ^ I think it's the same functionality as getDailyBookings

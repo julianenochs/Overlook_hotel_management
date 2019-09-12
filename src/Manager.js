@@ -5,15 +5,10 @@ class Manager {
     }
 
     searchGuest(name) {
-        this.currentGuest = this.data.users.find(guest => {
-            return guest.name === name
+        this.currentGuest = this.data.users.users.find(guest => {
+            return guest.name.toLowerCase() === name.toLowerCase()
         });
-        if (this.currentGuest !== undefined) {
-            domUpdates.noGuestFoundError();
-        } else {
-            domUpdates.showGuestInfo();
-            return this.currentGuest
-        }
+        return this.currentGuest
     }
 
     addGuest(name) {

@@ -15,6 +15,11 @@ const BookingsData = {
                     "userID": 88,
                     "date": "2019/08/28",
                     "roomNumber": 13
+                },
+                {
+                    "userID": 42,
+                    "date": "2019/10/30",
+                    "roomNumber": 6
                 }
             ],
             rooms: [{
