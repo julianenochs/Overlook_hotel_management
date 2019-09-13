@@ -1,19 +1,23 @@
 class Manager {
     constructor(data) {
         this.data = data;
-        this.currentGuest;
+        this.currentGuest = [];
     }
 
     searchGuest(name) {
-        this.currentGuest = this.data.users.find(guest => {
+        let searchedGuest = this.data.users.users.find(guest => {
             return guest.name.toLowerCase() === name.toLowerCase()
         });
-        return this.currentGuest
+        return searchedGuest
     }
 
     addGuest(name) {
-        this.currentGuest = name
-        return this.currentGuest
+        console.log(this.currentGuest)
+        this.currentGuest.push(name)
+        return this.currentGuest = {
+            name: name,
+            id: this.currentGuest.length + 1
+        }
     }
 }
 

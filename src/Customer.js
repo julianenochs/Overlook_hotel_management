@@ -9,9 +9,8 @@ class Customer {
             return room.roomType === roomType
         });
     }
-    // bookRoom() {
 
-    // }
+    
     // unbookRoom()
     // upgradeRoom()
     // getTotalBill()

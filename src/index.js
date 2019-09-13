@@ -32,6 +32,14 @@ let customer = new Customer(allData);
 $(document).ready(() => {
     $('.main').hide();
 
+    $('ul.tabs li').click(() => {
+        var tabId = $(this).attr('data-tab')
+        $('ul.tabs li').removeClass('active-tab');
+        $('.tab-content').removeClass('active-tab');
+        $(this).addClass('active-tab');
+        $("#" + tab_id).addClass('active-tab');
+    });
+
     $('.splash-button').click(function() {
         domUpdates.showMain();
     });
