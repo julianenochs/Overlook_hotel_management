@@ -1,9 +1,9 @@
 import $ from 'jquery';
-
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
 import fetch from 'cross-fetch';
+import Customer from './Customer';
 
 let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json());
@@ -28,6 +28,7 @@ Promise.all([users, rooms, bookings, roomServices])
     });
 
 let manager = new Manager(allData);
+let customer = new Customer(allData);
 $(document).ready(() => {
     $('.main').hide();
 
@@ -47,9 +48,9 @@ $(document).ready(() => {
         domUpdates.showGuestSubmission();
     });
 
-    $('.sumbit-new-guest__button').click(function() {
+    $('.submit-new-guest__button').click(function() {
         let newGuest = $('.add-guest').val()
-        let addedGuest = manager.addGuest(newGuest);
-        domUpdates.showGuestInfo();
-    })
+        manager.addGuest(newGuest);
+        domUpdates.showGuestInfo(newGuest);
+    });
 });

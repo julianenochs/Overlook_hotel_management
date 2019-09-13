@@ -5,7 +5,7 @@ class Manager {
     }
 
     searchGuest(name) {
-        this.currentGuest = this.data.users.users.find(guest => {
+        this.currentGuest = this.data.users.find(guest => {
             return guest.name.toLowerCase() === name.toLowerCase()
         });
         return this.currentGuest

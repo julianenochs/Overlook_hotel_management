@@ -14,6 +14,7 @@ const domUpdates = {
 
     showGuestSubmission() {
         addGuestForm.show();
+        $('.add-guest__button').hide();
         $('.guest-search__form').fadeOut();
     },
 
@@ -21,8 +22,9 @@ const domUpdates = {
         noGuestError.show();
     },
 
-    showGuestInfo() {
-        
+    showGuestInfo(newGuest) {
+        addGuestForm.hide();
+        $('.guest-name').text(newGuest)
     }
     
 }

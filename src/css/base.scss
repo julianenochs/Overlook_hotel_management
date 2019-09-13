@@ -2,13 +2,20 @@
 $primary-background: pink;
 
 .splash-page {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
   h1 {
     color: navy;
   }  
+}
+
+.no-guest-found__error {
+  background-color: white;
+  border: 2px solid black;
+  padding: 20px;
+  width: fit-content;
 }
 
 body {

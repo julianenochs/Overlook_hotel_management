@@ -1,13 +1,17 @@
 class Customer {
-    constructor(id, name) {
-        // this.data = data;
-        this.id = id;
-        this.name = name;
-// room
+    constructor(data) {
+        this.data = data;
 // orders
     }
 
-    // bookRoom()
+    filterRoomsByType(roomType) {
+        return this.data.rooms.filter(room => {
+            return room.roomType === roomType
+        });
+    }
+    // bookRoom() {
+
+    // }
     // unbookRoom()
     // upgradeRoom()
     // getTotalBill()

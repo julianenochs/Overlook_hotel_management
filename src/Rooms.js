@@ -6,21 +6,21 @@ class Rooms {
     }
 
     getAvailableRoomsToday(date) {
-        let availableBookings = this.data.bookings.bookings.filter(booking => {
+        let availableBookings = this.data.bookings.filter(booking => {
             return booking.date !== date
         })
         return availableBookings
     }
 
     getDailyBookings(date) {
-        this.dailyBookings = this.data.bookings.bookings.filter(booking => {
+        this.dailyBookings = this.data.bookings.filter(booking => {
             return booking.date === date
         })
         return this.dailyBookings
     }
 
     todaysTotalRevenue() {
-        return this.data.rooms.rooms.reduce((acc, room) => {
+        return this.data.rooms.reduce((acc, room) => {
             this.dailyBookings.forEach(bookedRoom => {
                 if (bookedRoom.roomNumber === room.number) {
                     acc += room.costPerNight
