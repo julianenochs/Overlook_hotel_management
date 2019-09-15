@@ -10,6 +10,14 @@ const domUpdates = {
         $('.todays-date').text(today)
     },
 
+    showAvailableRoomsToday(rooms) {
+        $('.rooms-available-today').text(`Number of Rooms Available Tonight: ${rooms}`)
+    },
+
+    showTodaysRevenue(total) {
+        $('.revenue').text(`Todays Total Revenue: $${total}:`)
+    },
+
     showGuestSubmission() {
         $('.add-guest__form').show();
         $('.add-guest__button').hide();
@@ -22,17 +30,22 @@ const domUpdates = {
 
     showGuestInfo(newGuest) {
         $('.add-guest__form').hide();
+        $('.guest-search__button').hide();
+        $('.add-guest__button').hide();
         $('.guest-name').text(newGuest);
     },
 
-    showDailyRoomServiceOrders(dailyOrders) {
+    updateOrdersTab(name) {
+        $('.guest-orders-info').text(`Orders for ${name}:`);
+    },
+
+    showDailyRoomServiceOrders(className, dailyOrders) {
         dailyOrders.forEach(order => {
-            $('.guest-orders-by-date').append(`<tr>
+            $(`.${className}`).append(`<tr>
             <td> ${order.date}</td>
             <td>$${order.totalCost}</td>
             </tr>`)
         });
-        // grab values from dailyOrders and put into a p tag or list
     },
 
     showNoOrderData() {

@@ -27,7 +27,8 @@
 
     <!-- Main Tab -->
     <div class='main tab-content active-tab' id='tab-1'>
-      <p>Main</p>
+      <p class='rooms-available-today'></p>
+      <p class='revenue'></p>
     </div>
 
     <!-- Guest Tab -->
@@ -66,11 +67,11 @@
 
     <!-- Order Tab -->
     <div class='orders tab-content' id='tab-4'>
-      <p>Orders</p>
       <p id='daily-room-services'></p>
-      <p> Breakdown of orders by date: </p>
+      <p> All Guest Orders: </p>
+      <p class='show-orders-by-date'></p>
+      <p class='guest-orders-info'></p>
       <p class='guest-orders'></p>
-      <p class='guest-orders-by-date'></p>
       <form>
         <label for ='orders-by-date'>Search for orders by date:
           <input type='date' class='orders-by-date' min='2019/07/01' max='2019/10/30'>

@@ -2,9 +2,9 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
-// import fetch from 'cross-fetch';
 import Customer from './Customer';
 import Orders from './RoomServices';
+import Rooms from './Rooms';
 
 let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json());
@@ -28,15 +28,19 @@ Promise.all([users, rooms, bookings, roomServices])
         return allData
     }).then(()=>(handlePageLoad()));
 
-let manager, customer, orders, moment, today;
+let manager, customer, roomInfo, orders, moment, today;
 function handlePageLoad() {
     manager = new Manager(allData);
     customer = new Customer(allData);
+    roomInfo = new Rooms(allData);
     orders = new Orders(allData);
     moment = require('moment');
-    today = moment().format("MMM Do YYYY");
+    today = moment().format('YYYY/MM/DD');
     orders.getDailyOrders(today);
+    domUpdates.showAvailableRoomsToday(roomInfo.getAvailableRooms(today));
+    domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
 }
+
 $(document).ready(() => {
     $('.main').hide();
 
@@ -52,7 +56,8 @@ $(document).ready(() => {
         domUpdates.showMain(today);
     });
 
-    $('.guest-search__button').click(function() {
+    $('.guest-search__button').click(function(e) {
+        e.preventDefault();
         let name = $('.guest-search').val()
         let searchedGuest = manager.searchGuest(name);
         if (searchedGuest === undefined) {
@@ -75,18 +80,19 @@ $(document).ready(() => {
 
     $('.orders-by-date__button').on('click', getOrdersByDate) 
     function getOrdersByDate(id) {
+        // e.preventDefault();
         let selectedDate = $('.orders-by-date').val();
-        let formattedDate = selectedDate.replace(/-/gi, "/");
         if (id) {
             orders.getOrdersByCustomer(id)
-            domUpdates.showDailyRoomServiceOrders()
+        } else {
+            orders.getDailyOrders(selectedDate);
         }
-        orders.getDailyOrders(formattedDate);
     }
 
     function updateInfoForSpecifiedCustomer() {
         let customerId = manager.currentGuest[0].id
-        console.log('customer', customerId)
+        domUpdates.updateOrdersTab(manager.currentGuest[0].name)
         getOrdersByDate(customerId)
+        getCustomerOrderByDate($('.orders-by-date').val())
     }
 });

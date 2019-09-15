@@ -12,17 +12,16 @@ beforeEach(() => {
 
 describe('Room Services', () => {
 
-    it.skip('should get the daily orders', () => {
-        // expect(orders.getDailyOrders('2019/07/29')).to.eql([{
-        //     userID: 14,
-        //     date: '2019/07/29',
-        //     food: 'Rustic Concrete Sandwich',
-        //     totalCost: 14.9
-        // }])
+    it('should get the daily orders', () => {
+        // should be a spy
     });
 
     it('should get all room service orders for a specified customer', () => {
-        // expect(orders.getOrdersByCustomer()).to.eql('')
-    })
+    // should be a spy
+    });
+
+    it.skip('should get a specified customers orders by date', () => {
+        expect(getCustomerOrderByDate('2019/09/15')).to.eql('')
+    });
 
 });

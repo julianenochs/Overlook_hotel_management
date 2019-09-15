@@ -5,11 +5,9 @@ class Rooms {
 // date
     }
 
-    getAvailableRoomsToday(date) {
-        let availableBookings = this.data.bookings.filter(booking => {
-            return booking.date !== date
-        })
-        return availableBookings
+    getAvailableRooms(date) {
+        let availableRoomNumbers = this.data.bookings.filter(booking => booking.date !== date)
+        return availableRoomNumbers.length
     }
 
     getDailyBookings(date) {
@@ -19,15 +17,17 @@ class Rooms {
         return this.dailyBookings
     }
 
-    todaysTotalRevenue() {
-        return this.data.rooms.reduce((acc, room) => {
-            this.dailyBookings.forEach(bookedRoom => {
+    todaysTotalRevenue(today) {
+        let total = this.data.bookings.filter(booking => booking.date === today)
+        .reduce((acc, bookedRoom) => {
+            this.data.rooms.forEach(room => {
                 if (bookedRoom.roomNumber === room.number) {
                     acc += room.costPerNight
                 }
             })
             return acc
         }, 0)
+        return total.toFixed(2)
     }
 
     getDateWithMostBookings() {

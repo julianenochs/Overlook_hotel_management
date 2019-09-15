@@ -14,20 +14,21 @@ class Orders {
         if (this.dailyOrders.length === 0) {
             domUpdates.showNoOrderData()
         } else {
-            domUpdates.showDailyRoomServiceOrders(this.dailyOrders)
+            domUpdates.showDailyRoomServiceOrders('show-orders-by-date', this.dailyOrders)
         }
     }
     
     getOrdersByCustomer(id) {
-        this.guestOrders = this.data.roomServiceOrders.find(user => user.userID === id)
-        return this.guestOrders
+        this.guestOrders = this.data.roomServices.filter(user => {
+            return user.userID === id
+        });
+        domUpdates.showDailyRoomServiceOrders('guest-orders', this.guestOrders);
     }
 
-    getOrderDates() {
-        
+    getCustomerOrderByDate(date) {
+        return this.guestOrders.filter(service => service.date === date);
     }
 
-    // getOrdersByDate()
     // getTotalSpentByCustomer()
 
 }
