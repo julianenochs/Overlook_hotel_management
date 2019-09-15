@@ -1,22 +1,14 @@
 import chai from 'chai';
 import Customer from '../src/Customer';
-import BookingsData from '../sampleData/bookings'
+import allData from '../sampleData/allData'
 const expect = chai.expect;
 
 let customer
 beforeEach(() => {
-    customer = new Customer(BookingsData)
+    customer = new Customer(allData)
 });
 
 describe('Customer', () => {
-
-    // it('should have an id', () => {
-    //     expect(customer.id).to.equal(1);
-    // });
-    
-    // it('should have a name', () => {
-    //     expect(customer.name).to.equal('Matilde Larson')
-    // });
 
     it('should be able to book a specific type of room', () => {
         expect(customer.filterRoomsByType('residential suite')).to.eql([{

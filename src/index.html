@@ -1,67 +1,82 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Unica+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Unica+One&display=swap" rel="stylesheet">
     <title>Ophelias Management</title>
   </head>
   <body>
     <div class='splash-page'>
-      <h1 class='splash-header'>Welcome To Ophelias Hotel Management</h1>
+      <h1 class='splash-header'>Ophelias Management Services</h1>
       <button class='splash-button'>Enter Here</button>
     </div>
     <div class='main'>
-      <div class='header'>
+      <header class='header'>
         <h1>Ophelias</h1>
         <div class='guest-info'>
           <p class='guest-name'></p>
           <p class='todays-date'></p>
         </div>
-    </div>
+      </header>
 
     <ul class='tabs'>
-      <li class='tab-link' data-tab='tab-1'>Main</li>
-      <li class='tab-link' data-tab='tab-2'>Customers</li>
+      <li class='tab-link active-tab' data-tab='tab-1'>Main</li>
+      <li class='tab-link' data-tab='tab-2'>Guests</li>
       <li class='tab-link' data-tab='tab-3'>Rooms</li>
       <li class='tab-link' data-tab='tab-4'>Orders</li>
     </ul>
-    
-      <!-- Customer Tab -->
-      <div class='guest'>
-        <div class='guest-search__form'>
-          <div class='no-guest-found__error'>
-            <p>
-              Sorry, we couldn't find an account with that name.
-            </p>
-          </div>
-          <form>    
-            <label for='guest-search'>
-              <input type='text' class='guest-search' placeholder='Search A Guest'>
-            </label>
-          </form>
-          <button class='guest-search__button'>Search Guest</button>
-        </div>
 
-        <button class='add-guest__button'>Add Guest</button>
+    <!-- Main Tab -->
+    <div class='main tab-content active-tab' id='tab-1'>
+      <p>Main</p>
+    </div>
 
-        <div class='add-guest__form'>
-          <form>
-            <label for='add-guest'>
-              <input type='text' class='add-guest' placeholder='New Guest Name'>
-            </label>
-          </form>
-          <button class='submit-new-guest__button'>Submit Guest Name</button>
+    <!-- Guest Tab -->
+    <div class='guest tab-content' id='tab-2'>
+      <div class='guest-search__form'>
+        <div class='no-guest-found__error'>
+          <p>
+            Sorry, we couldn't find any guests with that name. <br>
+            Add a new guest below.
+          </p>
         </div>
+        <form>    
+          <label for='guest-search'>
+            <input type='text' class='guest-search' placeholder='Search A Guest'>
+          </label>
+        </form>
+        <button class='guest-search__button'>Search Guest</button>
       </div>
 
-      <!-- Order Tab -->
-      <div class='orders'>
-        
-      </div>
+      <button class='add-guest__button'>Add Guest</button>
 
-      <!-- Room Tab -->
-      <div class='rooms'>
-        
+      <div class='add-guest__form'>
+        <form>
+          <label for='add-guest'>
+            <input type='text' class='add-guest' placeholder='New Guest Name'>
+          </label>
+        </form>
+        <button class='submit-new-guest__button'>Submit Guest Name</button>
       </div>
     </div>
-    </body>
+
+    <!-- Room Tab -->
+    <div class='rooms tab-content' id='tab-3'>
+      <p>Rooms</p>
+    </div>
+
+    <!-- Order Tab -->
+    <div class='orders tab-content' id='tab-4'>
+      <p>Orders</p>
+      <p id='daily-room-services'></p>
+      <p> Breakdown of orders by date: </p>
+      <p class='guest-orders'></p>
+      <p class='guest-orders-by-date'></p>
+      <form>
+        <label for ='orders-by-date'>Search for orders by date:
+          <input type='date' class='orders-by-date' min='2019/07/01' max='2019/10/30'>
+          <button class='orders-by-date__button'>Submit Date</button>
+        </label>
+      </form>
+    </div>
+  </body>
 </html>

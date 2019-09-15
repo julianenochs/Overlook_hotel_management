@@ -1,12 +1,12 @@
 import chai from 'chai';
 import Rooms from '../src/Rooms';
-import BookingsData from '../sampleData/bookings'
+import allData from '../sampleData/allData'
 const expect = chai.expect;
 
 let rooms
 beforeEach(() => {
     // console.log(BookingsData)
-    rooms = new Rooms(BookingsData);
+    rooms = new Rooms(allData);
 });
 
 describe('Rooms', () => {

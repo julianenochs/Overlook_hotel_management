@@ -2,8 +2,9 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
-import fetch from 'cross-fetch';
+// import fetch from 'cross-fetch';
 import Customer from './Customer';
+import Orders from './RoomServices';
 
 let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json());
@@ -20,38 +21,48 @@ let roomServices = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/roo
 let allData = {'users': [], 'rooms': [], 'bookings': [], 'roomServices': []}
 Promise.all([users, rooms, bookings, roomServices])
     .then(function(values) {
-        allData['users'] = values[0];
-        allData['rooms'] = values[1];
-        allData['bookings'] = values[2];
-        allData['roomServices'] = values[3];
+        allData['users'] = values[0].users;
+        allData['rooms'] = values[1].rooms;
+        allData['bookings'] = values[2].bookings;
+        allData['roomServices'] = values[3].roomServices;
         return allData
-    });
+    }).then(()=>(handlePageLoad()));
 
-let manager = new Manager(allData);
-let customer = new Customer(allData);
+let manager, customer, orders, moment, today;
+function handlePageLoad() {
+    manager = new Manager(allData);
+    customer = new Customer(allData);
+    orders = new Orders(allData);
+    moment = require('moment');
+    today = moment().format("MMM Do YYYY");
+    orders.getDailyOrders(today);
+}
 $(document).ready(() => {
     $('.main').hide();
 
-    $('ul.tabs li').click(() => {
+    $('ul.tabs li').click(function() {
         var tabId = $(this).attr('data-tab')
         $('ul.tabs li').removeClass('active-tab');
         $('.tab-content').removeClass('active-tab');
         $(this).addClass('active-tab');
-        $("#" + tab_id).addClass('active-tab');
+        $(`#${tabId}`).addClass('active-tab');
     });
 
     $('.splash-button').click(function() {
-        domUpdates.showMain();
+        domUpdates.showMain(today);
     });
-    
+
     $('.guest-search__button').click(function() {
         let name = $('.guest-search').val()
         let searchedGuest = manager.searchGuest(name);
         if (searchedGuest === undefined) {
             domUpdates.noGuestFoundError();
+        } else {
+            domUpdates.showGuestInfo(searchedGuest[0].name)
+            updateInfoForSpecifiedCustomer();
         }
     });
-    
+
     $('.add-guest__button').click(function() {
         domUpdates.showGuestSubmission();
     });
@@ -61,4 +72,21 @@ $(document).ready(() => {
         manager.addGuest(newGuest);
         domUpdates.showGuestInfo(newGuest);
     });
+
+    $('.orders-by-date__button').on('click', getOrdersByDate) 
+    function getOrdersByDate(id) {
+        let selectedDate = $('.orders-by-date').val();
+        let formattedDate = selectedDate.replace(/-/gi, "/");
+        if (id) {
+            orders.getOrdersByCustomer(id)
+            domUpdates.showDailyRoomServiceOrders()
+        }
+        orders.getDailyOrders(formattedDate);
+    }
+
+    function updateInfoForSpecifiedCustomer() {
+        let customerId = manager.currentGuest[0].id
+        console.log('customer', customerId)
+        getOrdersByDate(customerId)
+    }
 });
