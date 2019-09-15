@@ -32,6 +32,9 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "jquery": "^3.4.1"
+    "blooming-menu": "^1.1.1",
+    "cross-fetch": "^3.0.4",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0"
   }
 }

@@ -1,13 +1,92 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you import jQuery into a JS file if you use jQuery in that file
 import $ from 'jquery';
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
+import domUpdates from '../src/domUpdates';
+import Manager from '../src/Manager';
+// import fetch from 'cross-fetch';
+import Customer from './Customer';
+import Orders from './RoomServices';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
+    .then(response => response.json());
 
-console.log('This is the JavaScript entry file - your code begins here.');
+let rooms = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms')
+    .then(response => response.json());
+
+let bookings = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings')
+    .then(response => response.json());
+
+let roomServices = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices')
+    .then(response => response.json());
+
+let allData = {'users': [], 'rooms': [], 'bookings': [], 'roomServices': []}
+Promise.all([users, rooms, bookings, roomServices])
+    .then(function(values) {
+        allData['users'] = values[0].users;
+        allData['rooms'] = values[1].rooms;
+        allData['bookings'] = values[2].bookings;
+        allData['roomServices'] = values[3].roomServices;
+        return allData
+    }).then(()=>(handlePageLoad()));
+
+let manager, customer, orders, moment, today;
+function handlePageLoad() {
+    manager = new Manager(allData);
+    customer = new Customer(allData);
+    orders = new Orders(allData);
+    moment = require('moment');
+    today = moment().format("MMM Do YYYY");
+    orders.getDailyOrders(today);
+}
+$(document).ready(() => {
+    $('.main').hide();
+
+    $('ul.tabs li').click(function() {
+        var tabId = $(this).attr('data-tab')
+        $('ul.tabs li').removeClass('active-tab');
+        $('.tab-content').removeClass('active-tab');
+        $(this).addClass('active-tab');
+        $(`#${tabId}`).addClass('active-tab');
+    });
+
+    $('.splash-button').click(function() {
+        domUpdates.showMain(today);
+    });
+
+    $('.guest-search__button').click(function() {
+        let name = $('.guest-search').val()
+        let searchedGuest = manager.searchGuest(name);
+        if (searchedGuest === undefined) {
+            domUpdates.noGuestFoundError();
+        } else {
+            domUpdates.showGuestInfo(searchedGuest[0].name)
+            updateInfoForSpecifiedCustomer();
+        }
+    });
+
+    $('.add-guest__button').click(function() {
+        domUpdates.showGuestSubmission();
+    });
+
+    $('.submit-new-guest__button').click(function() {
+        let newGuest = $('.add-guest').val()
+        manager.addGuest(newGuest);
+        domUpdates.showGuestInfo(newGuest);
+    });
+
+    $('.orders-by-date__button').on('click', getOrdersByDate) 
+    function getOrdersByDate(id) {
+        let selectedDate = $('.orders-by-date').val();
+        let formattedDate = selectedDate.replace(/-/gi, "/");
+        if (id) {
+            orders.getOrdersByCustomer(id)
+            domUpdates.showDailyRoomServiceOrders()
+        }
+        orders.getDailyOrders(formattedDate);
+    }
+
+    function updateInfoForSpecifiedCustomer() {
+        let customerId = manager.currentGuest[0].id
+        console.log('customer', customerId)
+        getOrdersByDate(customerId)
+    }
+});
