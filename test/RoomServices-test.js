@@ -1,8 +1,9 @@
 import chai from 'chai';
 import Orders from '../src/RoomServices';
 import allData from '../sampleData/allData';
-import Manager from '../src/Manager'
 const expect = chai.expect;
+const spies = require('chai-spies');
+chai.use(spies);
 
 let orders
 beforeEach(() => {
@@ -13,15 +14,24 @@ beforeEach(() => {
 describe('Room Services', () => {
 
     it('should get the daily orders', () => {
-        // should be a spy
+        chai.spy.on(orders, ['getDailyOrders'], () => {});
+        // rooms.getDailyOrders();
     });
 
     it('should get all room service orders for a specified customer', () => {
-    // should be a spy
+        chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
+        orders.getCustomerOrderHistory();
     });
 
-    it.skip('should get a specified customers orders by date', () => {
-        expect(getCustomerOrderByDate('2019/09/15')).to.eql('')
+    it('should get a specified customers orders by date', () => {
+        chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
+        orders.getCustomerOrderHistory(100);
+        expect(orders.getCustomerOrderByDate(100, '2019/10/18')).to.eql([{
+            userID: 100,
+            date: '2019/10/18',
+            food: 'Rustic Cotton Sandwich',
+            totalCost: 17.33
+        }])
     });
 
 });

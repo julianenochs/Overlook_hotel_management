@@ -8,10 +8,14 @@ const domUpdates = {
         $('.main').show();
         $('.no-guest-found__error').hide();
         $('.todays-date').text(today);
+        $('.single-room').hide()
+        $('.suite').hide()
+        $('.junior-suite').hide()
+        $('.residential-suite').hide()
     },
 
     showAvailableRoomsToday(rooms) {
-        $('.rooms-available-today').text(`Number of Rooms Available Tonight: ${rooms}`);
+        $('.rooms-available-today').text(`${rooms} rooms are available tonight.`);
     },
 
     showAvailableRoomTypes(roomTypes) {
@@ -23,6 +27,10 @@ const domUpdates = {
                 }
             });
         });
+    },
+
+    showPercentageOfRoomsOccupied(percentage) {
+        $('.percentage-rooms-available').text(`That's ${percentage}% of all Ophelias rooms.`)
     },
 
     showRoomsByType() {
@@ -43,11 +51,14 @@ const domUpdates = {
         $('.no-guest-found__error').show();
     },
 
+    showNewGuestMessages(newGuest) {
+        $('.guest-name').text(`${newGuest} is a new guest and has no history at Ophelias.`)
+    },
+
     showGuestInfo(newGuest) {
         $('.add-guest__form').hide();
-        $('.guest-search__button').hide();
-        $('.add-guest__button').hide();
-        $('.guest-name').text(newGuest);
+        $('.no-guest-found__error').hide();
+        $('.guest-name-header').text(newGuest);
     },
 
     updateOrdersTab(name) {
@@ -57,8 +68,9 @@ const domUpdates = {
     showDailyRoomServiceOrders(className, dailyOrders) {
         dailyOrders.forEach(order => {
             $(`.${className}`).append(`<tr>
-            <td> ${order.date.slice(5, 10)}</td>
-            <td>$${order.totalCost}</td>
+            <td>Order Date: ${order.date.slice(5, 10)}</td>
+            </tr><tr>
+            <td>Total Cost: $${order.totalCost}</td>
             </tr>`)
         });
     },
@@ -67,8 +79,59 @@ const domUpdates = {
         $('#daily-room-services').text('There are no orders yet for today.')
     },
 
-    showOrdersByDate() {
-        $('.guest-orders-by-date').text()
+    showNoOrderDataForGuest() {
+        $('.guest-orders-by-date').text('This guest has no orders for this date.')
+    },
+
+    showOrderHistoryByDate(orders) {
+        orders.forEach(order => {
+            $('.guest-orders-by-date').append(`<tr>
+            <td>${order.date}</td>
+            </tr><tr>
+            <td>${order.totalCost}</td>
+            </tr>`)
+        })
+    },
+
+    updateGuestName(guest) {
+        $('.guest-name').text(`Showing Information for ${guest}.`)
+    },
+
+    showCustomerBookingHistory(bookingHistory) {
+        bookingHistory.forEach(booking => {
+            $('.past-bookings').append(`<tr>
+            <td>Date of Stay: ${booking.date.slice(5, 10)}</td>
+            <td>Room Number: ${booking.roomNumber}</td>
+            </tr>`)
+        })
+    },
+
+    showAvailableRoomsByType(roomType) {
+        let classCount = 0;
+        $('.new-booking__button').hide()
+        $('.single-room').show()
+        $('.suite').show()
+        $('.junior-suite').show()
+        $('.residential-suite').show()
+        // roomType.forEach(room => {
+        //     $('.available-rooms-by-type__button').append(
+        //         `<button class='button__${classCount++}'>${room}</button>`)
+        // })
+    },
+
+    showRooms(roomType) {
+        roomType.forEach(room => {
+            $('.available-rooms-by-type').append(`<tr>
+            <td>Room Number: ${room.number}</td>
+            <td>Bed Size: ${room.bedSize}</td>
+            <td>Number of Beds: ${room.numBeds}</td>
+            <td>Cost: $${room.costPerNight}</td>
+            </tr>`)
+        })
+    },
+
+    showBestBookingDate(date) {
+        $('.best-booking-date').text(`Ophelias Most Popular Booking Date: ${date.slice(5, 10)}`)
     }
 
 }

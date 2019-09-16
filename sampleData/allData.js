@@ -73,7 +73,7 @@ const allData = {
             "roomNumber": 6
         }
     ],
-    roomServiceOrders: [{
+    roomServices: [{
         "userID": 14,
         "date": "2019/07/29",
         "food": "Rustic Concrete Sandwich",
