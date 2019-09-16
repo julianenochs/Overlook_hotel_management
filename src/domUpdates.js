@@ -7,15 +7,30 @@ const domUpdates = {
         $('.add-guest__form').hide();
         $('.main').show();
         $('.no-guest-found__error').hide();
-        $('.todays-date').text(today)
+        $('.todays-date').text(today);
     },
 
     showAvailableRoomsToday(rooms) {
-        $('.rooms-available-today').text(`Number of Rooms Available Tonight: ${rooms}`)
+        $('.rooms-available-today').text(`Number of Rooms Available Tonight: ${rooms}`);
+    },
+
+    showAvailableRoomTypes(roomTypes) {
+        roomTypes.forEach(type => {
+            $('.room-types-available').append(`<p>`, {
+                text: type,
+                click: function() {
+                    showRoomsByType()
+                }
+            });
+        });
+    },
+
+    showRoomsByType() {
+        console.log('hello world!')
     },
 
     showTodaysRevenue(total) {
-        $('.revenue').text(`Todays Total Revenue: $${total}:`)
+        $('.revenue').text(`Todays Total Revenue: $${total}`);
     },
 
     showGuestSubmission() {
@@ -42,7 +57,7 @@ const domUpdates = {
     showDailyRoomServiceOrders(className, dailyOrders) {
         dailyOrders.forEach(order => {
             $(`.${className}`).append(`<tr>
-            <td> ${order.date}</td>
+            <td> ${order.date.slice(5, 10)}</td>
             <td>$${order.totalCost}</td>
             </tr>`)
         });

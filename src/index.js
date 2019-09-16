@@ -37,8 +37,10 @@ function handlePageLoad() {
     moment = require('moment');
     today = moment().format('YYYY/MM/DD');
     orders.getDailyOrders(today);
-    domUpdates.showAvailableRoomsToday(roomInfo.getAvailableRooms(today));
+    roomInfo.getAvailableRooms(today);
+    domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
     domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
+    domUpdates.showAvailableRoomTypes(roomInfo.availableRoomByType());
 }
 
 $(document).ready(() => {
@@ -60,7 +62,7 @@ $(document).ready(() => {
         e.preventDefault();
         let name = $('.guest-search').val()
         let searchedGuest = manager.searchGuest(name);
-        if (searchedGuest === undefined) {
+        if (searchedGuest[0] === undefined) {
             domUpdates.noGuestFoundError();
         } else {
             domUpdates.showGuestInfo(searchedGuest[0].name)
@@ -79,8 +81,8 @@ $(document).ready(() => {
     });
 
     $('.orders-by-date__button').on('click', getOrdersByDate) 
-    function getOrdersByDate(id) {
-        // e.preventDefault();
+    function getOrdersByDate(e, id) {
+        e.preventDefault();
         let selectedDate = $('.orders-by-date').val();
         if (id) {
             orders.getOrdersByCustomer(id)

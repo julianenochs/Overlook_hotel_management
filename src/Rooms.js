@@ -2,12 +2,18 @@ class Rooms {
     constructor(data, dailyBookings) {
         this.data = data;
         this.dailyBookings = dailyBookings;
+        this.availableRooms;
 // date
     }
 
     getAvailableRooms(date) {
-        let availableRoomNumbers = this.data.bookings.filter(booking => booking.date !== date)
-        return availableRoomNumbers.length
+        this.availableRooms = this.data.bookings.filter(booking => booking.date !== date)
+        .map(room => room.roomNumber)
+        return this.availableRooms
+    }
+
+    getNumberOfAvailableRooms() {
+        return this.availableRooms.length
     }
 
     getDailyBookings(date) {
@@ -27,13 +33,16 @@ class Rooms {
             })
             return acc
         }, 0)
-        return total.toFixed(2)
+        return Number(total.toFixed(2))
     }
 
-    getDateWithMostBookings() {
-        // this.data.bookings.forEach(booking => {
-        //     let month = booking.date.split('/')[1]
-        // })
+    availableRoomByType() {
+        let bookable = this.data.rooms.filter(room => {
+            return !this.availableRooms.includes(room.roomNumber)
+        }).map(room => room.roomType)
+        let uniqueSet = new Set(bookable)
+        let bookableRooms = [...uniqueSet]
+        return Array.from(new Set(bookableRooms))
     }
 }
 export default Rooms;

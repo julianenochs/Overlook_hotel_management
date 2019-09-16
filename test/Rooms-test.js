@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('Rooms', () => {
     it('should get the room numbers of the available rooms today', () => {
-        expect(rooms.getAvailableRooms('2019/10/18')).to.eql(5)
+        expect(rooms.getAvailableRooms('2019/10/18')).to.eql([5, 35, 41, 13, 6])
     });
 
     it('should get the bookings for a given date', () => {
@@ -29,5 +29,15 @@ describe('Rooms', () => {
 
     it.skip('should get the date with the most bookings', () => {
         expect(rooms.getDateWithMostBookings()).to.eql('')
+    })
+
+    it('should be able to the get number of available rooms tonight', () => {
+        rooms.getAvailableRooms('2019/10/18')
+        expect(rooms.getNumberOfAvailableRooms()).to.eql(5)
+    })
+
+    it('should be able to book a room', () => {
+        rooms.getAvailableRooms('2019/10/18')
+        expect(rooms.availableRoomByType()).to.eql(['residential suite', 'single room', 'suite', 'junior suite'])
     })
 });
