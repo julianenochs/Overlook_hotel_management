@@ -92,9 +92,10 @@ $(document).ready(() => {
     }
 
     function updateInfoForSpecifiedCustomer() {
-        let customerId = manager.currentGuest[0].id
-        domUpdates.updateOrdersTab(manager.currentGuest[0].name)
-        getOrdersByDate(customerId)
+        let guest = manager.currentGuest[0]
+        domUpdates.updateOrdersTab(guest.name)
+        getOrdersByCustomer(guest)
+        getOrdersByDate(guest.id)
         getCustomerOrderByDate($('.orders-by-date').val())
     }
 });
