@@ -22,4 +22,5 @@ describe('Manager', () => {
             id: 2
         })
     });
+
 });

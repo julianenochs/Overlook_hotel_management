@@ -2,10 +2,11 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
-// import fetch from 'cross-fetch';
 import Customer from './Customer';
 import Orders from './RoomServices';
+import Rooms from './Rooms';
 
+// --Fetch All Data--
 let users = fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users')
     .then(response => response.json());
 
@@ -25,68 +26,140 @@ Promise.all([users, rooms, bookings, roomServices])
         allData['rooms'] = values[1].rooms;
         allData['bookings'] = values[2].bookings;
         allData['roomServices'] = values[3].roomServices;
-        return allData
+        return allData;
     }).then(()=>(handlePageLoad()));
 
-let manager, customer, orders, moment, today;
+// --On Page Load--
+let manager, customer, roomInfo, orders, moment, today, headerDate;
 function handlePageLoad() {
     manager = new Manager(allData);
     customer = new Customer(allData);
+    roomInfo = new Rooms(allData);
     orders = new Orders(allData);
     moment = require('moment');
-    today = moment().format("MMM Do YYYY");
-    orders.getDailyOrders(today);
+    today = moment().format('YYYY/MM/DD');
+    headerDate = moment().format('L')
+    handleOrdersTab();
+    handleRoomsTab();
 }
-$(document).ready(() => {
+
+// --Show Splash Page--
     $('.main').hide();
 
+// -- Tabs --
     $('ul.tabs li').click(function() {
-        var tabId = $(this).attr('data-tab')
+        var tabId = $(this).attr('data-tab');
         $('ul.tabs li').removeClass('active-tab');
         $('.tab-content').removeClass('active-tab');
         $(this).addClass('active-tab');
         $(`#${tabId}`).addClass('active-tab');
     });
 
+// --Hide Splash Page--
     $('.splash-button').click(function() {
-        domUpdates.showMain(today);
+        domUpdates.showMain(headerDate);
     });
 
-    $('.guest-search__button').click(function() {
-        let name = $('.guest-search').val()
+// --Search For Guest--
+    $('.guest-search__button').click(function(e) {
+        e.preventDefault();
+        let name = $('.guest-search').val();
         let searchedGuest = manager.searchGuest(name);
-        if (searchedGuest === undefined) {
+        if (searchedGuest[0] === undefined) {
             domUpdates.noGuestFoundError();
+            searchedGuest.pop()
         } else {
-            domUpdates.showGuestInfo(searchedGuest[0].name)
-            updateInfoForSpecifiedCustomer();
+            domUpdates.showGuestInfo(searchedGuest[0].name);
+            domUpdates.updateGuestName(searchedGuest[0].name)
+            updateOrderInfoForSpecifiedCustomer();
+            updateRoomInfoForSpecifiedCustomer();
         }
     });
 
+// --Add A New Guest--
     $('.add-guest__button').click(function() {
         domUpdates.showGuestSubmission();
     });
-
+    
     $('.submit-new-guest__button').click(function() {
-        let newGuest = $('.add-guest').val()
+        let newGuest = $('.add-guest').val();
         manager.addGuest(newGuest);
         domUpdates.showGuestInfo(newGuest);
+        domUpdates.showNewGuestMessages(newGuest);
     });
 
-    $('.orders-by-date__button').on('click', getOrdersByDate) 
-    function getOrdersByDate(id) {
+// --Update Orders Tab--
+    $('.orders-by-date__button').on('click', function(e) {
+        let guest = manager.currentGuest[0];
+        e.preventDefault();
         let selectedDate = $('.orders-by-date').val();
         let formattedDate = selectedDate.replace(/-/gi, "/");
-        if (id) {
-            orders.getOrdersByCustomer(id)
-            domUpdates.showDailyRoomServiceOrders()
+        if (guest) {
+            updateCustomerOrderInfoByDate(guest.id, formattedDate);
+        } else {
+            orders.getDailyOrders(formattedDate);
         }
-        orders.getDailyOrders(formattedDate);
+    });
+
+    function updateOrderInfoForSpecifiedCustomer() {
+        let guest = manager.currentGuest[0];
+        orders.getCustomerOrderHistory(guest.id);
+        domUpdates.updateOrdersTab(guest.name);
     }
 
-    function updateInfoForSpecifiedCustomer() {
-        let customerId = manager.currentGuest[0].id
-        console.log('customer', customerId)
-        getOrdersByDate(customerId)
+    function updateCustomerOrderInfoByDate() {
+        let guest = manager.currentGuest[0];
+        domUpdates.showOrderHistoryByDate(orders.getCustomerOrderByDate(guest.id, $('.orders-by-date').val()))
     }
-});
+
+    function updateRoomInfoForSpecifiedCustomer() {
+        let guest = manager.currentGuest[0];
+        domUpdates.showCustomerBookingHistory(roomInfo.getCustomerBookingHistory(guest.id));
+    }
+
+    function handleOrdersTab() {
+        orders.getDailyOrders(today);
+    }
+
+// --Update Rooms Tab--
+function handleRoomsTab() {
+    roomInfo.getAvailableRooms(today);
+    domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
+    domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
+    roomInfo.availableRoomByType();
+    domUpdates.showPercentageOfRoomsOccupied(roomInfo.getPercentageOfRoomsOccupied(today));
+    domUpdates.showBestBookingDate(roomInfo.getDateWithMostBookings());
+}
+
+    $('.new-booking__button').on('click', showRoomButtons)
+    function showRoomButtons() {
+        domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
+    }
+
+        $('.single-room').click(function() {
+            domUpdates.showRooms(roomInfo.availableRoomByType('single'))
+        });
+
+        $('.suite').click(function () {
+            domUpdates.showRooms(roomInfo.availableRoomByType('suite'))
+        });
+
+        $('.junior-suite').click(function () {
+            domUpdates.showRooms(roomInfo.availableRoomByType('junior suite'))
+        });
+
+        $('.residential-suite').click(function () {
+            domUpdates.showRooms(roomInfo.availableRoomByType('residential suite'))
+        });
+    
+
+    // $('.button__1').on('click', function () {
+    //     domUpdates.showRooms(roomInfo.availableRoomByType())
+    // });
+    // $('.button__2').on('click', function () {
+    //     domUpdates.showRooms(roomInfo.availableRoomByType())
+    // });
+    // $('.button__3').on('click', function () {
+    //     domUpdates.showRooms(roomInfo.availableRoomByType())
+    // });
+

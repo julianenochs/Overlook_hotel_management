@@ -13,7 +13,7 @@
       <header class='header'>
         <h1>Ophelias</h1>
         <div class='guest-info'>
-          <p class='guest-name'></p>
+          <p class='guest-name-header'></p>
           <p class='todays-date'></p>
         </div>
       </header>
@@ -27,11 +27,15 @@
 
     <!-- Main Tab -->
     <div class='main tab-content active-tab' id='tab-1'>
-      <p>Main</p>
+      <h2 class='rooms-available-today'></h2>
+      <p class='room-types-available'></p>
+      <h2 class='percentage-rooms-available'></h2>
+      <h2 class='revenue'></h2>
     </div>
 
     <!-- Guest Tab -->
     <div class='guest tab-content' id='tab-2'>
+      <p class='guest-name'></p>
       <div class='guest-search__form'>
         <div class='no-guest-found__error'>
           <p>
@@ -61,14 +65,31 @@
 
     <!-- Room Tab -->
     <div class='rooms tab-content' id='tab-3'>
-      <p>Rooms</p>
+      <p class='guest-name'></p>
+      <h2 class='best-booking-date'></h2>
+      <button class='new-booking__button'>New Booking</button>
+      <p class='available-rooms-by-type__button'></p>
+      <button class='single-room'>Single</button>
+      <button class='suite'>Suite</button>
+      <button class='junior-suite'>Junior Suite</button>
+      <button class='residential-suite'>Residential Suite</button>
+      <p class='available-rooms-by-type'></p>
+      <form>
+        <label for='orders-by-date'>Search for available rooms:
+          <input type='date' class='rooms-by-date' min='2019/07/01' max='2019/10/30'>
+          <button class='rooms-by-date__button'>Submit Date</button>
+        </label>
+      </form>
+      <p class='past-bookings'></p>
     </div>
 
     <!-- Order Tab -->
     <div class='orders tab-content' id='tab-4'>
-      <p>Orders</p>
+      <p class='guest-name'></p>
       <p id='daily-room-services'></p>
-      <p> Breakdown of orders by date: </p>
+      <h2> All Guest Orders: </h2>
+      <p class='show-orders-by-date'></p>
+      <h2 class='guest-orders-info'></h2>
       <p class='guest-orders'></p>
       <p class='guest-orders-by-date'></p>
       <form>

@@ -4,30 +4,37 @@ class Orders {
         this.data = data;
         this.dailyOrders;
         this.guestOrders;
-// date
     }
 
     getDailyOrders(date) {
         this.dailyOrders = this.data.roomServices.filter(service => {
-            return service.date === date
+            return service.date === date;
         })
         if (this.dailyOrders.length === 0) {
-            domUpdates.showNoOrderData()
+            domUpdates.showNoOrderData();
         } else {
-            domUpdates.showDailyRoomServiceOrders(this.dailyOrders)
+            domUpdates.showDailyRoomServiceOrders('show-orders-by-date', this.dailyOrders);
         }
     }
     
-    getOrdersByCustomer(id) {
-        this.guestOrders = this.data.roomServiceOrders.find(user => user.userID === id)
-        return this.guestOrders
+    getCustomerOrderHistory(id) {
+        this.guestOrders = this.data.roomServices.filter(user => {
+            return user.userID === id;
+        });
+        domUpdates.showDailyRoomServiceOrders('guest-orders', this.guestOrders);
     }
 
-    getOrderDates() {
-        
+    getCustomerOrderByDate(id, date) {
+        this.guestOrders = this.data.roomServices.filter(user => {
+            return user.userID === id;
+        })
+            if((this.guestOrders.filter(service => service.date === date)).length === 0) {
+                domUpdates.showNoOrderDataForGuest();
+            } else {
+                return this.guestOrders.filter(service => service.date === date)
+            }
     }
 
-    // getOrdersByDate()
     // getTotalSpentByCustomer()
 
 }

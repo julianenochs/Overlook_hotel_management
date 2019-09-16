@@ -19,6 +19,10 @@ class Manager {
             id: this.currentGuest.length + 1
         }
     }
+
+    bookRoom() {
+        
+    }
 }
 
 export default Manager;
