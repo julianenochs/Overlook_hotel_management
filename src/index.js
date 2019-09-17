@@ -112,21 +112,20 @@ let manager, roomInfo, orders, moment, today, headerDate;
         domUpdates.showOrderHistoryByDate(orders.getCustomerOrderByDate(guest.id, $('.orders-by-date').val()));
     }
 
+    function handleOrdersTab() {
+        orders.getDailyOrders(today);
+    }   
+
+// --Update Rooms Tab--        
+        $('.rooms-by-date__button').on('click', function() {
+            let selectedDate = $('.rooms-by-date').val();
+            let formattedDate = selectedDate.replace(/-/gi, "/");
+        });
+
     function updateRoomInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
         domUpdates.showCustomerBookingHistory(guest.name, roomInfo.getCustomerBookingHistory(guest.id));
     }
-
-    function handleOrdersTab() {
-        orders.getDailyOrders(today);
-    }
-
-// --Update Rooms Tab--
-
-    $('.rooms-by-date__button').on('click', function() {
-        let selectedDate = $('.rooms-by-date').val();
-        let formattedDate = selectedDate.replace(/-/gi, "/");
-    });
 
     function handleRoomsTab() {
         roomInfo.getAvailableRooms(today);
@@ -144,28 +143,21 @@ let manager, roomInfo, orders, moment, today, headerDate;
     });
 
     $('.single-room__button').click(function() {
-        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'));
+        let guestID = manager.currentGuest[0].id
+        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'), guestID, today);
     });
 
     $('.suite__button').click(function () {
-        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'));
+        let guestID = manager.currentGuest[0].id
+        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'), guestID, today);
     });
 
     $('.junior-suite__button').click(function () {
-        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'));
+        let guestID = manager.currentGuest[0].id
+        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'), guestID, today);
     });
 
     $('.residential-suite__button').click(function () {
-        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'));
-    });
-
-    $('.booking__button').on('click', function() {
-        console.log('hi')
-    });
-
-    $('.booking__button').on('click', function (e) {
-        let roomNumber;
-        console.log(e.target.className)
-        e.target.className === 'single' ? console.log('hi') : console.log(null);
-        // console.log(roomNumber)
+        let guestID = manager.currentGuest[0].id
+        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'), guestID, today);
     });
