@@ -18,6 +18,10 @@ body {
   font-family: $body-font;
 }
 
+h2 {
+  font-size: 1.2em;
+}
+
 ul.tabs {
 	margin: 0px;
   padding: 0px;
@@ -43,7 +47,7 @@ ul.tabs li.active-tab {
   display: none;
   background: $primary-color;
   font-size: 1.2em;
-  height: 65vh;
+  height: 70vh;
   padding: 15px;
 }
 
@@ -66,11 +70,13 @@ h1 {
 }
 
 button {
+  background: linear-gradient(rgba(209, 209, 209, 0.466), white);
   border-radius: 15px;
   box-shadow: 0px 1px 0px 0px #1c1b18;
   cursor: pointer;
   font-family: $body-font;
   font-size: 1.2em;
+  font-weight: 600;
   margin: 10px;
   text-shadow: 0px 1px 0px #ffffff;
   width: 10%;
@@ -80,6 +86,9 @@ button {
 }
 
 td {
+  background: linear-gradient(#F76A94, rgb(255, 157, 187));
+  border: 1px solid white;
+  min-width: 200px;
   padding: 10px;
 }
 

@@ -8,6 +8,7 @@ const domUpdates = {
         $('.main').show();
         $('.no-guest-found__error').hide();
         $('.todays-date').text(today);
+        $('.new-booking').hide();
         $('.single-room').hide()
         $('.suite').hide()
         $('.junior-suite').hide()
@@ -106,17 +107,12 @@ const domUpdates = {
         })
     },
 
-    showAvailableRoomsByType(roomType) {
-        let classCount = 0;
+    showAvailableRoomsByType() {
         $('.new-booking__button').hide()
         $('.single-room').show()
         $('.suite').show()
         $('.junior-suite').show()
         $('.residential-suite').show()
-        // roomType.forEach(room => {
-        //     $('.available-rooms-by-type__button').append(
-        //         `<button class='button__${classCount++}'>${room}</button>`)
-        // })
     },
 
     showRooms(roomType) {
@@ -127,11 +123,15 @@ const domUpdates = {
             <td>Number of Beds: ${room.numBeds}</td>
             <td>Cost: $${room.costPerNight}</td>
             </tr>`)
-        })
+        });
     },
 
     showBestBookingDate(date) {
         $('.best-booking-date').text(`Ophelias Most Popular Booking Date: ${date.slice(5, 10)}`)
+    },
+
+    showWorstBookingDate(date) {
+        $('.worst-booking-date').text(`Ophelias Most Available Date for Booking: ${date.slice(5, 10)}`)
     }
 
 }

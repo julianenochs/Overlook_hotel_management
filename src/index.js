@@ -2,7 +2,6 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
-import Customer from './Customer';
 import Orders from './RoomServices';
 import Rooms from './Rooms';
 
@@ -30,18 +29,17 @@ Promise.all([users, rooms, bookings, roomServices])
     }).then(()=>(handlePageLoad()));
 
 // --On Page Load--
-let manager, customer, roomInfo, orders, moment, today, headerDate;
-function handlePageLoad() {
-    manager = new Manager(allData);
-    customer = new Customer(allData);
-    roomInfo = new Rooms(allData);
-    orders = new Orders(allData);
-    moment = require('moment');
-    today = moment().format('YYYY/MM/DD');
-    headerDate = moment().format('L')
-    handleOrdersTab();
-    handleRoomsTab();
-}
+let manager, roomInfo, orders, moment, today, headerDate;
+    function handlePageLoad() {
+        manager = new Manager(allData);
+        roomInfo = new Rooms(allData);
+        orders = new Orders(allData);
+        moment = require('moment');
+        today = moment().format('YYYY/MM/DD');
+        headerDate = moment().format('L')
+        handleOrdersTab();
+        handleRoomsTab();
+    }   
 
 // --Show Splash Page--
     $('.main').hide();
@@ -122,44 +120,33 @@ function handlePageLoad() {
     }
 
 // --Update Rooms Tab--
-function handleRoomsTab() {
-    roomInfo.getAvailableRooms(today);
-    domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
-    domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
-    roomInfo.availableRoomByType();
-    domUpdates.showPercentageOfRoomsOccupied(roomInfo.getPercentageOfRoomsOccupied(today));
-    domUpdates.showBestBookingDate(roomInfo.getDateWithMostBookings());
-}
+    function handleRoomsTab() {
+        roomInfo.getAvailableRooms(today);
+        domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
+        domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
+        roomInfo.availableRoomByType();
+        domUpdates.showPercentageOfRoomsOccupied(roomInfo.getPercentageOfRoomsOccupied(today));
+        domUpdates.showBestBookingDate(roomInfo.getDateWithMostBookings());
+        domUpdates.showWorstBookingDate(roomInfo.getDateWithLeastBookings());
+    }
 
     $('.new-booking__button').on('click', showRoomButtons)
     function showRoomButtons() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
     }
 
-        $('.single-room').click(function() {
-            domUpdates.showRooms(roomInfo.availableRoomByType('single'))
-        });
+    $('.single-room').click(function() {
+        domUpdates.showRooms(roomInfo.availableRoomByType('single'))
+    });
 
-        $('.suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('suite'))
-        });
+    $('.suite').click(function () {
+        domUpdates.showRooms(roomInfo.availableRoomByType('suite'))
+    });
 
-        $('.junior-suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('junior suite'))
-        });
+    $('.junior-suite').click(function () {
+        domUpdates.showRooms(roomInfo.availableRoomByType('junior suite'))
+    });
 
-        $('.residential-suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('residential suite'))
-        });
-    
-
-    // $('.button__1').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-    // $('.button__2').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-    // $('.button__3').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-
+    $('.residential-suite').click(function () {
+        domUpdates.showRooms(roomInfo.availableRoomByType('residential suite'))
+    });
