@@ -38,9 +38,9 @@ class Rooms {
     availableRoomByType(type) {
         let allRooms = this.data.rooms.filter(room => room.roomType === type)
         .filter(room => {
-            return !this.availableRooms.includes(room.roomNumber)
-        })
-        return allRooms
+            return !this.availableRooms.includes(room.roomNumber);
+        });
+        return allRooms;
     }
 
     availableRoomMenu() {
@@ -61,8 +61,8 @@ class Rooms {
     }
 
     getCustomerBookingHistory(id) {
-        let guestBookings = this.data.bookings.filter(booking => booking.userID === id)
-            return guestBookings
+        let guestBookings = this.data.bookings.filter(booking => booking.userID === id);
+            return guestBookings;
     }
 
     getDateWithMostBookings() {
@@ -71,9 +71,9 @@ class Rooms {
                 acc[booking.date] = 1
             }
             acc[booking.date] += 1
-            return acc
-        }, {})
-        return Object.keys(popular)[0]
+            return acc;
+        }, {});
+        return Object.keys(popular)[0];
     }
 
     getDateWithLeastBookings() {
@@ -82,11 +82,11 @@ class Rooms {
                 acc[booking.date] = 1
             }
             acc[booking.date] += 1
-            return acc
-        }, {})
-        let index = Object.keys(notPopular)
-        let reversedIndex = index.reverse()
-        return reversedIndex[0]
+            return acc;
+        }, {});
+        let index = Object.keys(notPopular);
+        let reversedIndex = index.reverse();
+        return reversedIndex[0];
     }
 
     makeNewBooking(id, date, roomNumber) {
@@ -94,8 +94,8 @@ class Rooms {
             userID: id,
             date,
             roomNumber
-        }
-        return this.data.bookings.push(newBooking)
+        };
+        return this.data.bookings.push(newBooking);
     }
 }
 export default Rooms;

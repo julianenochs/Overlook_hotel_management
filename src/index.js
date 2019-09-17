@@ -36,7 +36,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
         orders = new Orders(allData);
         moment = require('moment');
         today = moment().format('YYYY/MM/DD');
-        headerDate = moment().format('L')
+        headerDate = moment().format('L');
         handleOrdersTab();
         handleRoomsTab();
     }   
@@ -65,13 +65,13 @@ let manager, roomInfo, orders, moment, today, headerDate;
         let searchedGuest = manager.searchGuest(name);
         if (searchedGuest[0] === undefined) {
             domUpdates.noGuestFoundError();
-            searchedGuest.pop()
+            searchedGuest.pop();
         } else {
             domUpdates.showGuestInfo(searchedGuest[0].name);
-            domUpdates.updateGuestName(searchedGuest[0].name)
+            domUpdates.updateGuestName(searchedGuest[0].name);
             updateOrderInfoForSpecifiedCustomer();
             updateRoomInfoForSpecifiedCustomer();
-        }
+        };
     });
 
 // --Add A New Guest--
@@ -93,23 +93,23 @@ let manager, roomInfo, orders, moment, today, headerDate;
         let selectedDate = $('.orders-by-date').val();
         let formattedDate = selectedDate.replace(/-/gi, "/");
         if (guest) {
-            orders.getDailyOrders(formattedDate)
+            orders.getDailyOrders(formattedDate);
             updateCustomerOrderInfoByDate(guest.id, formattedDate);
         } else {
             orders.getDailyOrders(formattedDate);
-        }
+        };
     });
 
     function updateOrderInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
         orders.getCustomerOrderHistory(guest.id);
-        domUpdates.showCustomerOrderTotal(guest.name, orders.getCustomerOrderTotal(guest.id))
+        domUpdates.showCustomerOrderTotal(guest.name, orders.getCustomerOrderTotal(guest.id));
         domUpdates.updateOrdersTab(guest.name);
     }
 
     function updateCustomerOrderInfoByDate() {
         let guest = manager.currentGuest[0];
-        domUpdates.showOrderHistoryByDate(orders.getCustomerOrderByDate(guest.id, $('.orders-by-date').val()))
+        domUpdates.showOrderHistoryByDate(orders.getCustomerOrderByDate(guest.id, $('.orders-by-date').val()));
     }
 
     function updateRoomInfoForSpecifiedCustomer() {
@@ -139,27 +139,26 @@ let manager, roomInfo, orders, moment, today, headerDate;
     }
 
 // --New Bookings--
-    $('.new-booking__button').on('click', showRoomButtons)
-    function showRoomButtons() {
+    $('.new-booking__button').on('click', function() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
-    }
+    });
 
     $('.single-room__button').click(function() {
-        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'))
+        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'));
     });
 
     $('.suite__button').click(function () {
-        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'))
+        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'));
     });
 
     $('.junior-suite__button').click(function () {
-        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'))
+        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'));
     });
 
     $('.residential-suite__button').click(function () {
-        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'))
+        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'));
     });
 
     $('.booking__button').on('click', function() {
         console.log('hi')
-    })
+    });

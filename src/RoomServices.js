@@ -31,8 +31,8 @@ class Orders {
             if((this.guestOrders.filter(service => service.date === date)).length === 0) {
                 domUpdates.showNoOrderDataForGuest();
             } else {
-                return this.guestOrders.filter(service => service.date === date)
-            }
+                return this.guestOrders.filter(service => service.date === date);
+            };
     }
 
     getCustomerOrderTotal(id) {
@@ -40,9 +40,9 @@ class Orders {
             return user.userID === id;
         }).reduce((acc, service) => {
             acc = service.totalCost += acc
-            return acc
-        }, 0)
-        return allCustomerOrders
+            return acc;
+        }, 0);
+        return allCustomerOrders;
     }
 
 }
