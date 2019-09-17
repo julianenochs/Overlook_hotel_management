@@ -132,7 +132,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
         domUpdates.showWorstBookingDate(roomInfo.getDateWithLeastBookings());
     }
 
-    // --New Bookings--
+// --New Bookings--
     $('.new-booking__button').on('click', showRoomButtons)
     function showRoomButtons() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
@@ -142,17 +142,17 @@ let manager, roomInfo, orders, moment, today, headerDate;
         // for showRooms() I added a 3rd argument, an array of the other rooms classes and used the commented
         // out forEach on line 150 of domUpdates (added the parameter hiddenTables too)
         // She no workee
-        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'))
+        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'), ['suite', 'juinor-suite', 'residential-suite'])
     });
 
     $('.suite__button').click(function () {
-        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'))
+        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'), ['single', 'juinor-suite', 'residential-suite'])
     });
 
     $('.junior-suite__button').click(function () {
-        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'))
+        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'), ['suite', 'single', 'residential-suite'])
     });
 
     $('.residential-suite__button').click(function () {
-        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'))
+        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'), ['suite', 'juinor-suite', 'single'])
     });

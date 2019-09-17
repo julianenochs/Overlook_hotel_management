@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 const domUpdates = {
 
+// 
     showMain(today) {
         $('.splash-page').fadeOut();
         $('.add-guest__form').hide();
@@ -127,7 +128,7 @@ const domUpdates = {
         $('.residential-suite__button').show()
     },
 
-    showRooms(className, roomType) {
+    showRooms(className, roomType, hiddenTables) {
         $(`.${className}`).append(`<tr>
         <td>Room Number</td>
         <td>Bed Size</td>
@@ -148,10 +149,10 @@ const domUpdates = {
             </tr>`)
         });
         // -- code for hiding and showing only clicked on room types
-        // hiddenTables.forEach(table => {
-        //     $(`.${className}`).show()
-        //     $(`.${table}`).hide()
-        // });
+        hiddenTables.forEach(table => {
+            $(`.${className}`).show()
+            $(`.${table}`).hide()
+        });
     },
 
     showBestBookingDate(date) {
