@@ -1,7 +1,7 @@
 class Rooms {
-    constructor(data, dailyBookings) {
+    constructor(data) {
         this.data = data;
-        this.dailyBookings = dailyBookings;
+        this.dailyBookings;
         this.availableRooms;
     }
 
@@ -13,13 +13,6 @@ class Rooms {
 
     getNumberOfAvailableRooms() {
         return this.availableRooms.length;
-    }
-
-    getDailyBookings(date) {
-        this.dailyBookings = this.data.bookings.filter(booking => {
-            return booking.date === date;
-        })
-        return this.dailyBookings;
     }
 
     todaysTotalRevenue(today) {
@@ -65,25 +58,24 @@ class Rooms {
             return guestBookings;
     }
 
-    getDateWithMostBookings() {
-        let popular = this.data.bookings.reduce((acc, booking) => {
+    getBookingsByFrequency() {
+        let occurence = this.data.bookings.reduce((acc, booking) => {
             if (!acc[booking.date]) {
                 acc[booking.date] = 1
             }
             acc[booking.date] += 1
             return acc;
         }, {});
+        return occurence
+    }
+
+    getDateWithMostBookings() {
+        let popular = this.getBookingsByFrequency();
         return Object.keys(popular)[0];
     }
 
     getDateWithLeastBookings() {
-        let notPopular = this.data.bookings.reduce((acc, booking) => {
-            if (!acc[booking.date]) {
-                acc[booking.date] = 1
-            }
-            acc[booking.date] += 1
-            return acc;
-        }, {});
+        let notPopular = this.getBookingsByFrequency();
         let index = Object.keys(notPopular);
         let reversedIndex = index.reverse();
         return reversedIndex[0];
