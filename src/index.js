@@ -103,6 +103,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
     function updateOrderInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
         orders.getCustomerOrderHistory(guest.id);
+        domUpdates.showCustomerOrderTotal(guest.name, orders.getCustomerOrderTotal(guest.id))
         domUpdates.updateOrdersTab(guest.name);
     }
 
@@ -113,7 +114,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
 
     function updateRoomInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
-        domUpdates.showCustomerBookingHistory(roomInfo.getCustomerBookingHistory(guest.id));
+        domUpdates.showCustomerBookingHistory(guest.name, roomInfo.getCustomerBookingHistory(guest.id));
     }
 
     function handleOrdersTab() {
@@ -131,23 +132,27 @@ let manager, roomInfo, orders, moment, today, headerDate;
         domUpdates.showWorstBookingDate(roomInfo.getDateWithLeastBookings());
     }
 
+    // --New Bookings--
     $('.new-booking__button').on('click', showRoomButtons)
     function showRoomButtons() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
     }
 
-    $('.single-room').click(function() {
-        domUpdates.showRooms(roomInfo.availableRoomByType('single'))
+    $('.single-room__button').click(function() {
+        // for showRooms() I added a 3rd argument, an array of the other rooms classes and used the commented
+        // out forEach on line 150 of domUpdates (added the parameter hiddenTables too)
+        // She no workee
+        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'))
     });
 
-    $('.suite').click(function () {
-        domUpdates.showRooms(roomInfo.availableRoomByType('suite'))
+    $('.suite__button').click(function () {
+        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'))
     });
 
-    $('.junior-suite').click(function () {
-        domUpdates.showRooms(roomInfo.availableRoomByType('junior suite'))
+    $('.junior-suite__button').click(function () {
+        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'))
     });
 
-    $('.residential-suite').click(function () {
-        domUpdates.showRooms(roomInfo.availableRoomByType('residential suite'))
+    $('.residential-suite__button').click(function () {
+        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'))
     });
