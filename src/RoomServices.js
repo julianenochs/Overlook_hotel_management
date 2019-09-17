@@ -27,7 +27,7 @@ class Orders {
     getCustomerOrderByDate(id, date) {
         this.guestOrders = this.data.roomServices.filter(user => {
             return user.userID === id;
-        })
+        });
             if((this.guestOrders.filter(service => service.date === date)).length === 0) {
                 domUpdates.showNoOrderDataForGuest();
             } else {

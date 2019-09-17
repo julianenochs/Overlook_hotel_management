@@ -162,3 +162,10 @@ let manager, roomInfo, orders, moment, today, headerDate;
     $('.booking__button').on('click', function() {
         console.log('hi')
     });
+
+    $('.booking__button').on('click', function (e) {
+        let roomNumber;
+        console.log(e.target.className)
+        e.target.className === 'single' ? console.log('hi') : console.log(null);
+        // console.log(roomNumber)
+    });
