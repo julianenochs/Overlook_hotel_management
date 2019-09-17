@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe('Rooms', () => {
     it('should get the room numbers of the available rooms today', () => {
-        expect(rooms.getAvailableRooms('2019/10/18')).to.eql([5, 35, 41, 13, 6])
+        expect(rooms.getAvailableRooms('2019/10/18')).to.eql([5, 35, 41, 13, 6]);
     });
 
     it('should get the bookings for a given date', () => {
@@ -22,20 +22,20 @@ describe('Rooms', () => {
     });
 
     it('should get the total revenue for today', () => {
-        expect(rooms.todaysTotalRevenue('2019/10/19')).to.eql(246.65)
+        expect(rooms.todaysTotalRevenue('2019/10/19')).to.eql(246.65);
     });
 
     it('should get the date with the most bookings', () => {
-        expect(rooms.getDateWithMostBookings()).to.eql('2019/10/19')
+        expect(rooms.getDateWithMostBookings()).to.eql('2019/10/19');
     });
 
     it('should be able to the get number of available rooms tonight', () => {
-        rooms.getAvailableRooms('2019/10/18')
-        expect(rooms.getNumberOfAvailableRooms()).to.eql(5)
+        rooms.getAvailableRooms('2019/10/18');
+        expect(rooms.getNumberOfAvailableRooms()).to.eql(5);
     });
 
     it('should be get the available rooms by type', () => {
-        rooms.getAvailableRooms('2019/10/18')
+        rooms.getAvailableRooms('2019/10/18');
         expect(rooms.availableRoomByType('junior suite')).to.eql([
             {
                 number: 4,
@@ -53,12 +53,12 @@ describe('Rooms', () => {
                 numBeds: 2,
                 costPerNight: 246.65
             }
-        ])
+        ]);
     });
 
     it.skip('should be get the available rooms by type as a menu', () => {
-        rooms.getAvailableRooms('2019/10/18')
-        expect(rooms.availableRoomMenu()).to.eql(['junior suite'])
+        rooms.getAvailableRooms('2019/10/18');
+        expect(rooms.availableRoomMenu()).to.eql(['junior suite']);
     });
 
     it('should get the percentage of rooms occupied for today', () => {
@@ -75,6 +75,6 @@ describe('Rooms', () => {
     });
 
     it('should get the date with the least bookings', () => {
-        expect(rooms.getDateWithLeastBookings()).to.eql('2019/08/28')
+        expect(rooms.getDateWithLeastBookings()).to.eql('2019/08/28');
     });
 });

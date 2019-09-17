@@ -7,15 +7,14 @@ chai.use(spies);
 
 let orders
 beforeEach(() => {
-    orders = new Orders(allData)
-    // manager = new Manager(allData)
+    orders = new Orders(allData);
 });
 
 describe('Room Services', () => {
 
     it('should get the daily orders', () => {
         chai.spy.on(orders, ['getDailyOrders'], () => {});
-        // rooms.getDailyOrders();
+        orders.getDailyOrders();
     });
 
     it('should get all room service orders for a specified customer', () => {
@@ -31,13 +30,13 @@ describe('Room Services', () => {
             date: '2019/10/18',
             food: 'Rustic Cotton Sandwich',
             totalCost: 17.33
-        }])
+        }]);
     });
 
     it('should get a customers total for all room service orders', () => {
-        chai.spy.on(orders, ['getCustomerOrderHistory'], () => {})
+        chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
         orders.getCustomerOrderHistory(14);
-        expect(orders.getCustomerOrderTotal()).to.eql('')
-    })
+        expect(orders.getCustomerOrderTotal()).to.eql('');
+    });
 
 });

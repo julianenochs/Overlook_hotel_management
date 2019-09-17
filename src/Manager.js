@@ -6,18 +6,18 @@ class Manager {
 
     searchGuest(name) {
         let searchedGuest = this.data.users.find(guest => {
-            return guest.name.toLowerCase() === name.toLowerCase()
+            return guest.name.toLowerCase() === name.toLowerCase();
         });
-        this.currentGuest.push(searchedGuest)
-            return this.currentGuest
+        this.currentGuest.push(searchedGuest);
+            return this.currentGuest;
     }
 
     addGuest(name) {
-        this.currentGuest.push(name)
+        this.currentGuest.push(name);
         return this.currentGuest = {
             name: name,
             id: this.currentGuest.length + 1
-        }
+        };
     }
 
 }
