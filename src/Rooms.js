@@ -87,6 +87,7 @@ class Rooms {
             date,
             roomNumber
         };
+        console.log(newBooking)
         return this.data.bookings.push(newBooking);
     }
 }

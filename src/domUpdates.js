@@ -139,6 +139,7 @@ const domUpdates = {
     },
 
     showRooms(className, roomType) {
+        let dataID;
         $(`.${className}`).append(`<tr>
         <td>Room Number</td>
         <td>Bed Size</td>
@@ -156,6 +157,10 @@ const domUpdates = {
             <td>$${room.costPerNight}</td>
             <td><button class='booking__button' data-id=${room.number}>Book</button></td>
             </tr>`);
+        });
+        $('.booking__button').on('click', function(e) {
+            dataID = $(e.target).attr('data-id')
+            return dataID
         });
     },
 
