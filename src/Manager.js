@@ -20,9 +20,6 @@ class Manager {
         }
     }
 
-    bookRoom() {
-        
-    }
 }
 
 export default Manager;
