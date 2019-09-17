@@ -88,5 +88,14 @@ class Rooms {
         let reversedIndex = index.reverse()
         return reversedIndex[0]
     }
+
+    makeNewBooking(id, date, roomNumber) {
+        let newBooking = {
+            userID: id,
+            date,
+            roomNumber
+        }
+        return this.data.bookings.push(newBooking)
+    }
 }
 export default Rooms;

@@ -122,6 +122,12 @@ let manager, roomInfo, orders, moment, today, headerDate;
     }
 
 // --Update Rooms Tab--
+
+    $('.rooms-by-date__button').on('click', function() {
+        let selectedDate = $('.rooms-by-date').val();
+        let formattedDate = selectedDate.replace(/-/gi, "/");
+    });
+
     function handleRoomsTab() {
         roomInfo.getAvailableRooms(today);
         domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
@@ -132,16 +138,13 @@ let manager, roomInfo, orders, moment, today, headerDate;
         domUpdates.showWorstBookingDate(roomInfo.getDateWithLeastBookings());
     }
 
-    // --New Bookings--
+// --New Bookings--
     $('.new-booking__button').on('click', showRoomButtons)
     function showRoomButtons() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
     }
 
     $('.single-room__button').click(function() {
-        // for showRooms() I added a 3rd argument, an array of the other rooms classes and used the commented
-        // out forEach on line 150 of domUpdates (added the parameter hiddenTables too)
-        // She no workee
         domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'))
     });
 
@@ -156,3 +159,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
     $('.residential-suite__button').click(function () {
         domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'))
     });
+
+    $('.booking__button').on('click', function() {
+        console.log('hi')
+    })
