@@ -64,10 +64,12 @@ const domUpdates = {
     showDailyRoomServiceOrders(className, dailyOrders) {
         dailyOrders.forEach(order => {
             $(`.${className}`).append(`<tr>
-            <td> Order Date </td> 
-            <td> Total Cost </td> 
+            <td>Order Date</td> 
+            <td>Food</td>
+            <td>Total Cost</td> 
             </tr><tr>
             <td>${order.date.slice(5, 10)}</td>
+            <td>${order.food}</td>
             <td>$${order.totalCost}</td>
             </tr>`);
         });
@@ -85,11 +87,13 @@ const domUpdates = {
         orders.forEach(order => {
             $('.guest-orders-by-date').append(`
             <th>Order Date</th>
+            <th>Food</th>
             <th>Total Cost</th>
             <tr>
             <td>${order.date}</td>
             </tr><tr>
-            <td>${order.totalCost}</td>
+            <td>${order.food}</td>
+            <td>$${order.totalCost}</td>
             </tr>`);
         });
     },
