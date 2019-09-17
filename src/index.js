@@ -2,7 +2,6 @@ import $ from 'jquery';
 import './css/base.scss';
 import domUpdates from '../src/domUpdates';
 import Manager from '../src/Manager';
-import Customer from './Customer';
 import Orders from './RoomServices';
 import Rooms from './Rooms';
 
@@ -30,18 +29,17 @@ Promise.all([users, rooms, bookings, roomServices])
     }).then(()=>(handlePageLoad()));
 
 // --On Page Load--
-let manager, customer, roomInfo, orders, moment, today, headerDate;
-function handlePageLoad() {
-    manager = new Manager(allData);
-    customer = new Customer(allData);
-    roomInfo = new Rooms(allData);
-    orders = new Orders(allData);
-    moment = require('moment');
-    today = moment().format('YYYY/MM/DD');
-    headerDate = moment().format('L')
-    handleOrdersTab();
-    handleRoomsTab();
-}
+let manager, roomInfo, orders, moment, today, headerDate;
+    function handlePageLoad() {
+        manager = new Manager(allData);
+        roomInfo = new Rooms(allData);
+        orders = new Orders(allData);
+        moment = require('moment');
+        today = moment().format('YYYY/MM/DD');
+        headerDate = moment().format('L')
+        handleOrdersTab();
+        handleRoomsTab();
+    }   
 
 // --Show Splash Page--
     $('.main').hide();
@@ -95,6 +93,7 @@ function handlePageLoad() {
         let selectedDate = $('.orders-by-date').val();
         let formattedDate = selectedDate.replace(/-/gi, "/");
         if (guest) {
+            orders.getDailyOrders(formattedDate)
             updateCustomerOrderInfoByDate(guest.id, formattedDate);
         } else {
             orders.getDailyOrders(formattedDate);
@@ -104,6 +103,7 @@ function handlePageLoad() {
     function updateOrderInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
         orders.getCustomerOrderHistory(guest.id);
+        domUpdates.showCustomerOrderTotal(guest.name, orders.getCustomerOrderTotal(guest.id))
         domUpdates.updateOrdersTab(guest.name);
     }
 
@@ -114,7 +114,7 @@ function handlePageLoad() {
 
     function updateRoomInfoForSpecifiedCustomer() {
         let guest = manager.currentGuest[0];
-        domUpdates.showCustomerBookingHistory(roomInfo.getCustomerBookingHistory(guest.id));
+        domUpdates.showCustomerBookingHistory(guest.name, roomInfo.getCustomerBookingHistory(guest.id));
     }
 
     function handleOrdersTab() {
@@ -122,44 +122,37 @@ function handlePageLoad() {
     }
 
 // --Update Rooms Tab--
-function handleRoomsTab() {
-    roomInfo.getAvailableRooms(today);
-    domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
-    domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
-    roomInfo.availableRoomByType();
-    domUpdates.showPercentageOfRoomsOccupied(roomInfo.getPercentageOfRoomsOccupied(today));
-    domUpdates.showBestBookingDate(roomInfo.getDateWithMostBookings());
-}
+    function handleRoomsTab() {
+        roomInfo.getAvailableRooms(today);
+        domUpdates.showAvailableRoomsToday(roomInfo.getNumberOfAvailableRooms(today));
+        domUpdates.showTodaysRevenue(roomInfo.todaysTotalRevenue(today));
+        roomInfo.availableRoomByType();
+        domUpdates.showPercentageOfRoomsOccupied(roomInfo.getPercentageOfRoomsOccupied(today));
+        domUpdates.showBestBookingDate(roomInfo.getDateWithMostBookings());
+        domUpdates.showWorstBookingDate(roomInfo.getDateWithLeastBookings());
+    }
 
+    // --New Bookings--
     $('.new-booking__button').on('click', showRoomButtons)
     function showRoomButtons() {
         domUpdates.showAvailableRoomsByType(roomInfo.availableRoomMenu());
     }
 
-        $('.single-room').click(function() {
-            domUpdates.showRooms(roomInfo.availableRoomByType('single'))
-        });
+    $('.single-room__button').click(function() {
+        // for showRooms() I added a 3rd argument, an array of the other rooms classes and used the commented
+        // out forEach on line 150 of domUpdates (added the parameter hiddenTables too)
+        // She no workee
+        domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'))
+    });
 
-        $('.suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('suite'))
-        });
+    $('.suite__button').click(function () {
+        domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'))
+    });
 
-        $('.junior-suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('junior suite'))
-        });
+    $('.junior-suite__button').click(function () {
+        domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'))
+    });
 
-        $('.residential-suite').click(function () {
-            domUpdates.showRooms(roomInfo.availableRoomByType('residential suite'))
-        });
-    
-
-    // $('.button__1').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-    // $('.button__2').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-    // $('.button__3').on('click', function () {
-    //     domUpdates.showRooms(roomInfo.availableRoomByType())
-    // });
-
+    $('.residential-suite__button').click(function () {
+        domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'))
+    });

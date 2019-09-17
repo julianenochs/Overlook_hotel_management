@@ -73,4 +73,8 @@ describe('Rooms', () => {
             roomNumber: 41
         }]);
     });
+
+    it('should get the date with the least bookings', () => {
+        expect(rooms.getDateWithLeastBookings()).to.eql('2019/08/28')
+    });
 });

@@ -35,7 +35,15 @@ class Orders {
             }
     }
 
-    // getTotalSpentByCustomer()
+    getCustomerOrderTotal(id) {
+        let allCustomerOrders = this.data.roomServices.filter(user => {
+            return user.userID === id;
+        }).reduce((acc, service) => {
+            acc = service.totalCost += acc
+            return acc
+        }, 0)
+        return allCustomerOrders
+    }
 
 }
 

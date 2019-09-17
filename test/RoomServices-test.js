@@ -34,4 +34,10 @@ describe('Room Services', () => {
         }])
     });
 
+    it('should get a customers total for all room service orders', () => {
+        chai.spy.on(orders, ['getCustomerOrderHistory'], () => {})
+        orders.getCustomerOrderHistory(14);
+        expect(orders.getCustomerOrderTotal()).to.eql('')
+    })
+
 });

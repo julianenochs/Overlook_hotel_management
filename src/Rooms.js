@@ -75,5 +75,18 @@ class Rooms {
         }, {})
         return Object.keys(popular)[0]
     }
+
+    getDateWithLeastBookings() {
+        let notPopular = this.data.bookings.reduce((acc, booking) => {
+            if (!acc[booking.date]) {
+                acc[booking.date] = 1
+            }
+            acc[booking.date] += 1
+            return acc
+        }, {})
+        let index = Object.keys(notPopular)
+        let reversedIndex = index.reverse()
+        return reversedIndex[0]
+    }
 }
 export default Rooms;

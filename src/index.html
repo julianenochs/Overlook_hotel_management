@@ -65,22 +65,30 @@
 
     <!-- Room Tab -->
     <div class='rooms tab-content' id='tab-3'>
-      <p class='guest-name'></p>
-      <h2 class='best-booking-date'></h2>
-      <button class='new-booking__button'>New Booking</button>
-      <p class='available-rooms-by-type__button'></p>
-      <button class='single-room'>Single</button>
-      <button class='suite'>Suite</button>
-      <button class='junior-suite'>Junior Suite</button>
-      <button class='residential-suite'>Residential Suite</button>
-      <p class='available-rooms-by-type'></p>
-      <form>
-        <label for='orders-by-date'>Search for available rooms:
-          <input type='date' class='rooms-by-date' min='2019/07/01' max='2019/10/30'>
-          <button class='rooms-by-date__button'>Submit Date</button>
-        </label>
-      </form>
-      <p class='past-bookings'></p>
+      <div class='room-tab'>
+        <h2 class='best-booking-date'></h2>
+        <h2 class='worst-booking-date'></h2>
+        <p class='guest-name'></p>
+        <button class='new-booking__button'>New Booking</button>
+        <p class='available-rooms-by-type__button'></p>
+        <button class='single-room__button'>Single</button>
+        <button class='suite__button'>Suite</button>
+        <button class='junior-suite__button'>Junior Suite</button>
+        <button class='residential-suite__button'>Residential Suite</button>
+        <div class='table'>
+          <p class='single suite junior-suite residential-suite'></p>
+        </div>
+        <form>
+          <label for='orders-by-date'>Search for available rooms:
+            <input type='date' class='rooms-by-date' min='2019/07/01' max='2019/10/30'>
+            <button class='rooms-by-date__button'>Submit Date</button>
+          </label>
+        </form>
+        <p class='guest-booking-name'></p>
+        <div class='table'>
+          <p class='past-bookings'></p>
+        </div>
+      </div>
     </div>
 
     <!-- Order Tab -->
@@ -91,6 +99,7 @@
       <p class='show-orders-by-date'></p>
       <h2 class='guest-orders-info'></h2>
       <p class='guest-orders'></p>
+      <h2 class='guest-orders-total'></h2>
       <p class='guest-orders-by-date'></p>
       <form>
         <label for ='orders-by-date'>Search for orders by date:

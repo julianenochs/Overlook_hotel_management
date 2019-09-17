@@ -8,10 +8,11 @@ const domUpdates = {
         $('.main').show();
         $('.no-guest-found__error').hide();
         $('.todays-date').text(today);
-        $('.single-room').hide()
-        $('.suite').hide()
-        $('.junior-suite').hide()
-        $('.residential-suite').hide()
+        $('.new-booking').show();
+        $('.single-room__button').hide()
+        $('.suite__button').hide()
+        $('.junior-suite__button').hide()
+        $('.residential-suite__button').hide()
     },
 
     showAvailableRoomsToday(rooms) {
@@ -85,7 +86,10 @@ const domUpdates = {
 
     showOrderHistoryByDate(orders) {
         orders.forEach(order => {
-            $('.guest-orders-by-date').append(`<tr>
+            $('.guest-orders-by-date').append(`
+            <th>Order Date</th>
+            <th>Total Cost</th>
+            <tr>
             <td>${order.date}</td>
             </tr><tr>
             <td>${order.totalCost}</td>
@@ -93,45 +97,69 @@ const domUpdates = {
         })
     },
 
+    showCustomerOrderTotal(name, total) {
+        $('.guest-orders-total').text(`${name}'s Total Room Service Charges: $${total}`)
+    },
+
     updateGuestName(guest) {
         $('.guest-name').text(`Showing Information for ${guest}.`)
     },
 
-    showCustomerBookingHistory(bookingHistory) {
+    showCustomerBookingHistory(guest, bookingHistory) {
+        $('.guest-booking-name').text(`${guest}'s Previous Stays.`)
+        $('.past-bookings').append(`<tr>
+        <td>Date of Stay</td>
+        <td>Room Number</td>
+        </tr>`)
         bookingHistory.forEach(booking => {
             $('.past-bookings').append(`<tr>
-            <td>Date of Stay: ${booking.date.slice(5, 10)}</td>
-            <td>Room Number: ${booking.roomNumber}</td>
+            <td>${booking.date.slice(5, 10)}</td>
+            <td>${booking.roomNumber}</td>
             </tr>`)
         })
     },
 
-    showAvailableRoomsByType(roomType) {
-        let classCount = 0;
+    showAvailableRoomsByType() {
         $('.new-booking__button').hide()
-        $('.single-room').show()
-        $('.suite').show()
-        $('.junior-suite').show()
-        $('.residential-suite').show()
-        // roomType.forEach(room => {
-        //     $('.available-rooms-by-type__button').append(
-        //         `<button class='button__${classCount++}'>${room}</button>`)
-        // })
+        $('.single-room__button').show()
+        $('.suite__button').show()
+        $('.junior-suite__button').show()
+        $('.residential-suite__button').show()
     },
 
-    showRooms(roomType) {
+    showRooms(className, roomType) {
+        $(`.${className}`).append(`<tr>
+        <td>Room Number</td>
+        <td>Bed Size</td>
+        <td>Number of Beds</td>
+        <td>Comes with Bidet</td>
+        <td>Cost</td>
+        </tr>
+        `)
         roomType.forEach(room => {
-            $('.available-rooms-by-type').append(`<tr>
-            <td>Room Number: ${room.number}</td>
-            <td>Bed Size: ${room.bedSize}</td>
-            <td>Number of Beds: ${room.numBeds}</td>
-            <td>Cost: $${room.costPerNight}</td>
+            let bookCounter = 0
+            $(`.${className}`).append(`<tr>
+            <td>${room.number}</td>
+            <td>${room.bedSize}</td>
+            <td>${room.numBeds}</td>
+            <td>${room.bidet ? 'Yes' : 'No'}</td>
+            <td>$${room.costPerNight}</td>
+            <td><button class='book book-${bookCounter++}'>Book</button></td>
             </tr>`)
-        })
+        });
+        // -- code for hiding and showing only clicked on room types
+        // hiddenTables.forEach(table => {
+        //     $(`.${className}`).show()
+        //     $(`.${table}`).hide()
+        // });
     },
 
     showBestBookingDate(date) {
         $('.best-booking-date').text(`Ophelias Most Popular Booking Date: ${date.slice(5, 10)}`)
+    },
+
+    showWorstBookingDate(date) {
+        $('.worst-booking-date').text(`Ophelias Most Available Date for Booking: ${date.slice(5, 10)}`)
     }
 
 }
