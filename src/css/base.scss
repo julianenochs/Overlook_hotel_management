@@ -129,6 +129,10 @@ input {
   scroll-behavior: smooth;
 }
 
+.past-bookings-table {
+  max-height: 500px;
+}
+
 .rooms-table {
   max-height: 400px;
 }

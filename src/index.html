@@ -16,6 +16,7 @@
           <p class='guest-name-header'></p>
           <p class='todays-date'></p>
         </div>
+        <button class='reset'>Reset Page</button>
       </header>
 
     <ul class='tabs'>
@@ -80,15 +81,9 @@
         </div>
       </div>
       <div class='room-tab-2'>
-        <form onsubmit='return false'>
-            <label for='orders-by-date'>Search for available rooms:
-              <input type='date' class='rooms-by-date' min='2019/07/01' max='2019/10/30'>
-            </label>
-          </form>
-          <button type='submit' class='rooms-by-date__button'>Search</button>
           <p class='rooms-available-by-date'></p>
           <p class='guest-booking-name'></p>
-          <div class='table'>
+          <div class='table past-bookings-table'>
             <p class='past-bookings'></p>
           </div>
         </div>

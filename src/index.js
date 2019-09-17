@@ -74,6 +74,11 @@ let manager, roomInfo, orders, moment, today, headerDate;
         };
     });
 
+// Reset Page
+    $('.reset').on('click', function() {
+        location.reload()
+    });
+
 // --Add A New Guest--
     $('.add-guest__button').click(function() {
         domUpdates.showGuestSubmission();
