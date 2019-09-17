@@ -35,7 +35,9 @@ class Orders {
             }
     }
 
-    // getTotalSpentByCustomer()
+    getCustomerOrdersTotal() {
+        
+    }
 
 }
 

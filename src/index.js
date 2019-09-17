@@ -93,6 +93,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
         let selectedDate = $('.orders-by-date').val();
         let formattedDate = selectedDate.replace(/-/gi, "/");
         if (guest) {
+            orders.getDailyOrders(formattedDate)
             updateCustomerOrderInfoByDate(guest.id, formattedDate);
         } else {
             orders.getDailyOrders(formattedDate);
