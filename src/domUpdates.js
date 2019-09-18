@@ -63,6 +63,7 @@ const domUpdates = {
     },
 
     showDailyRoomServiceOrders(className, dailyOrders) {
+        $(`${className}`).empty();
         dailyOrders.forEach(order => {
             $(`.${className}`).append(`<tr>
             <td>Order Date</td> 
@@ -140,6 +141,7 @@ const domUpdates = {
     },
 
     showRooms(className, roomType) {
+        $(`.${className}`).empty();
         $(`.${className}`).append(`<tr>
         <td>Room Number</td>
         <td>Bed Size</td>

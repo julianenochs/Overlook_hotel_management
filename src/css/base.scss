@@ -55,6 +55,11 @@ ul.tabs li.active-tab {
   display: inherit;
 }
 
+.images {
+  width: 300px;
+  height: 200px;
+}
+
 .primary-box {
   background-color: $error-background;
   border: 2px solid $text-color;
