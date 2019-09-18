@@ -3,6 +3,7 @@ class Rooms {
         this.data = data;
         this.dailyBookings;
         this.availableRooms;
+        this.newBooking;
     }
 
     getAvailableRooms(date) {
@@ -82,13 +83,17 @@ class Rooms {
     }
 
     makeNewBooking(id, date, roomNumber) {
-        let newBooking = {
+        this.newBooking = {
             userID: id,
             date,
             roomNumber
         };
-        console.log(newBooking)
-        return this.data.bookings.push(newBooking);
+        return this.newBooking;
+    }
+
+    addBookingToAllBookings() {
+        this.data.bookings.push(this.newBooking)
+            return this.data.bookings
     }
 }
 export default Rooms;

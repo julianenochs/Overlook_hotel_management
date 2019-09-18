@@ -29,7 +29,7 @@ Promise.all([users, rooms, bookings, roomServices])
     }).then(()=>(handlePageLoad()));
 
 // --On Page Load--
-let manager, roomInfo, orders, moment, today, headerDate;
+let manager, roomInfo, orders, moment, today, headerDate, dataID, guest, guestID, guestName;
     function handlePageLoad() {
         manager = new Manager(allData);
         roomInfo = new Rooms(allData);
@@ -93,7 +93,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
 
 // --Update Orders Tab--
     $('.orders-by-date__button').on('click', function(e) {
-        let guest = manager.currentGuest[0];
+        guest = manager.currentGuest[0];
         e.preventDefault();
         let selectedDate = $('.orders-by-date').val();
         let formattedDate = selectedDate.replace(/-/gi, "/");
@@ -106,7 +106,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
     });
 
     function updateOrderInfoForSpecifiedCustomer() {
-        let guest = manager.currentGuest[0];
+        guest = manager.currentGuest[0];
         orders.getCustomerOrderHistory(guest.id);
         domUpdates.showCustomerOrderTotal(guest.name, orders.getCustomerOrderTotal(guest.id));
         domUpdates.updateOrdersTab(guest.name);
@@ -128,7 +128,7 @@ let manager, roomInfo, orders, moment, today, headerDate;
         });
 
     function updateRoomInfoForSpecifiedCustomer() {
-        let guest = manager.currentGuest[0];
+        guest = manager.currentGuest[0];
         domUpdates.showCustomerBookingHistory(guest.name, roomInfo.getCustomerBookingHistory(guest.id));
     }
 
@@ -148,21 +148,42 @@ let manager, roomInfo, orders, moment, today, headerDate;
     });
 
     $('.single-room__button').click(function() {
-        let guestID = manager.currentGuest[0].id
+        guestID = manager.currentGuest[0].id
         domUpdates.showRooms('single', roomInfo.availableRoomByType('single room'), guestID, today);
+        getID();
     });
 
     $('.suite__button').click(function () {
-        let guestID = manager.currentGuest[0].id
+        guestID = manager.currentGuest[0].id
         domUpdates.showRooms('suite', roomInfo.availableRoomByType('suite'), guestID, today);
+        getID();
     });
 
     $('.junior-suite__button').click(function () {
-        let guestID = manager.currentGuest[0].id
+        guestID = manager.currentGuest[0].id
         domUpdates.showRooms('junior-suite', roomInfo.availableRoomByType('junior suite'), guestID, today);
+        getID();
     });
 
     $('.residential-suite__button').click(function () {
-        let guestID = manager.currentGuest[0].id
+        guestID = manager.currentGuest[0].id
         domUpdates.showRooms('residential-suite', roomInfo.availableRoomByType('residential suite'), guestID, today);
+        getID();
     });
+
+    function getID() {
+        $('.booking__button').on('click', function(e) {
+            dataID = $(e.target).attr('data-id');
+            makeBooking(dataID);
+        });
+    }
+
+    function makeBooking() {
+        $('.booking__button').on('click', function (e) {
+        guestID = manager.currentGuest[0].id
+        guestName = manager.currentGuest[0].name
+        domUpdates.confirmBooking(guestName, roomInfo.makeNewBooking(guestID, today, dataID))
+        });
+    }
+
+    

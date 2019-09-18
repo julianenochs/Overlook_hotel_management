@@ -78,4 +78,47 @@ describe('Rooms', () => {
     it('should get the date with the least bookings', () => {
         expect(rooms.getDateWithLeastBookings()).to.eql('2019/08/28');
     });
+
+    it('should be able to make a new booking', () => {
+        expect(rooms.makeNewBooking(1, '2019/09/17', 5)).to.eql({
+            userID: 1,
+            date: '2019/09/17',
+            roomNumber: 5
+        });
+    });
+
+    it('should add the new booking to all bookings', () => {
+        rooms.makeNewBooking(1, '2019/09/17', 5);
+        expect(rooms.addBookingToAllBookings()).to.eql([{
+                userID: 4,
+                date: '2019/10/19',
+                roomNumber: 5
+            },
+            {
+                userID: 29,
+                date: '2019/10/30',
+                roomNumber: 35
+            },
+            {
+                userID: 9,
+                date: '2019/09/01',
+                roomNumber: 41
+            },
+            {
+                userID: 88,
+                date: '2019/08/28',
+                roomNumber: 13
+            },
+            {
+                userID: 42,
+                date: '2019/10/30',
+                roomNumber: 6
+            },
+            {
+                userID: 1,
+                date: '2019/09/17',
+                roomNumber: 5
+            }
+        ])
+    })
 });
