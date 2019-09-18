@@ -23,9 +23,10 @@ Features that I plan on adding in future iterations:
 
 ## Desktop Images:
 
-![Desktop_Comp](src/overlook-splash.png)
-![Main_Comp](src/overlook-main.png)
-![Rooms_Comp](overlook/src/overlook-rooms.png)
+![overlook-splash](https://user-images.githubusercontent.com/48660739/65157717-b743e700-da20-11e9-802c-f0370aaa6fda.png)
+![overlook-main](https://user-images.githubusercontent.com/48660739/65157704-b01cd900-da20-11e9-8013-b43edc8b1813.png)
+![overlook-rooms](https://user-images.githubusercontent.com/48660739/65157732-bb700480-da20-11e9-8e95-9997f63b0cb0.png)
+
 
 # Author:
 
