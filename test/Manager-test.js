@@ -3,12 +3,17 @@ import Manager from '../src/Manager';
 import allData from '../sampleData/allData';
 const expect = chai.expect;
 
-let manager
+let manager;
 beforeEach(() => {
     manager = new Manager(allData);
 });
 
 describe('Manager', () => {
+
+    it('should have access to the data', () => {
+        expect(manager.data).to.eql(allData);
+    });
+
     it('should be able to search for a guest', () => {
         expect(manager.searchGuest('Chadrick Lowe')).to.eql([{
             id: 2,
@@ -20,7 +25,7 @@ describe('Manager', () => {
         expect(manager.addGuest('Julian Enochs')).to.eql({
             name: 'Julian Enochs',
             id: 2
-        })
+        });
     });
 
 });

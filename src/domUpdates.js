@@ -114,8 +114,8 @@ const domUpdates = {
             $('.past-bookings').append(`<tr>
             <td>${booking.date.slice(5, 10)}</td>
             <td>${booking.roomNumber}</td>
-            </tr>`)
-        })
+            </tr>`);
+        });
     },
 
     showAvailableRoomsByType() {
@@ -136,7 +136,7 @@ const domUpdates = {
             <td>$${room.costPerNight}</td>
             <td><button class='booking__button' data-id=${room.number}>Book</button></td>
             </tr>`);
-        })
+        });
     },
 
     showRooms(className, roomType) {
@@ -171,7 +171,7 @@ const domUpdates = {
     confirmBooking(name, booking) {
         $('.confirm-booking-box').show();
         $('.rooms-table').hide();
-        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number ${booking.roomNumber}, on ${booking.date.slice(5, 10)}.`)
+        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number ${booking.roomNumber}, on ${booking.date.slice(5, 10)}.`);
     }
 
 }
