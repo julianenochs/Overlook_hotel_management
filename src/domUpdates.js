@@ -15,6 +15,7 @@ const domUpdates = {
         $('.junior-suite__button').hide();
         $('.residential-suite__button').hide();
         $('.new-booking__button').hide();
+        $('.confirm-booking-box').hide();
     },
 
 // --Main Tab--
@@ -104,7 +105,7 @@ const domUpdates = {
 
 // --Rooms Tab--
     showCustomerBookingHistory(guest, bookingHistory) {
-        $('.guest-booking-name').text(`${guest}'s Previous Stays.`);
+        $('.guest-booking-name').text(`${guest}'s Bookings.`);
         $('.past-bookings').append(`<tr>
         <td>Date of Stay</td>
         <td>Room Number</td>
@@ -168,9 +169,9 @@ const domUpdates = {
     },
 
     confirmBooking(name, booking) {
-        console.log('booking', booking)
+        $('.confirm-booking-box').show();
         $('.rooms-table').hide();
-        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number: ${booking.roomNumber} on ${booking.date}.`)
+        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number ${booking.roomNumber}, on ${booking.date.slice(5, 10)}.`)
     }
 
 }
