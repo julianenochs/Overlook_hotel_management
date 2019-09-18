@@ -12,19 +12,27 @@ beforeEach(() => {
 
 describe('Room Services', () => {
 
+    it('should have access to the data', () => {
+        expect(orders.data).to.eql(allData);
+    });
+
     it('should get the daily orders', () => {
         chai.spy.on(orders, ['getDailyOrders'], () => {});
         orders.getDailyOrders();
+        expect(orders.getDailyOrders).to.have.been.called(1);
     });
 
     it('should get all room service orders for a specified customer', () => {
         chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
         orders.getCustomerOrderHistory();
+        expect(orders.getCustomerOrderHistory).to.have.been.called(1);
+
     });
 
     it('should get a specified customers orders by date', () => {
         chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
         orders.getCustomerOrderHistory(100);
+        expect(orders.getCustomerOrderHistory).to.have.been.called(1);
         expect(orders.getCustomerOrderByDate(100, '2019/10/18')).to.eql([{
             userID: 100,
             date: '2019/10/18',
@@ -36,6 +44,7 @@ describe('Room Services', () => {
     it('should get a customers total for all room service orders', () => {
         chai.spy.on(orders, ['getCustomerOrderHistory'], () => {});
         orders.getCustomerOrderHistory(14);
+        expect(orders.getCustomerOrderHistory).to.have.been.called(1);
         expect(orders.getCustomerOrderTotal(14)).to.eql(14.9);
     });
 

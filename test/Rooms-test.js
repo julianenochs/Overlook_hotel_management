@@ -9,6 +9,11 @@ beforeEach(() => {
 });
 
 describe('Rooms', () => {
+
+    it('should have access to the data', () => {
+        expect(rooms.data).to.eql(allData);
+    });
+
     it('should get the room numbers of the available rooms today', () => {
         expect(rooms.getAvailableRooms('2019/10/18')).to.eql([5, 35, 41, 13, 6]);
     });
@@ -44,9 +49,9 @@ describe('Rooms', () => {
         ]);
     });
 
-    it.skip('should be get the available rooms by type as a menu', () => {
+    it('should be get the available rooms by type as a menu', () => {
         rooms.getAvailableRooms('2019/10/18');
-        expect(rooms.availableRoomMenu()).to.eql(['junior suite']);
+        expect(rooms.availableRoomMenu()).to.eql(['residential suite', 'single room', 'suite', 'junior suite']);
     });
 
     it('should get the percentage of rooms occupied for today', () => {
@@ -119,6 +124,6 @@ describe('Rooms', () => {
                 date: '2019/09/17',
                 roomNumber: 5
             }
-        ])
-    })
+        ]);
+    });
 });

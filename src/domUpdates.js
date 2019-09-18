@@ -63,6 +63,7 @@ const domUpdates = {
     },
 
     showDailyRoomServiceOrders(className, dailyOrders) {
+        $(`${className}`).empty();
         dailyOrders.forEach(order => {
             $(`.${className}`).append(`<tr>
             <td>Order Date</td> 
@@ -105,21 +106,27 @@ const domUpdates = {
 
 // --Rooms Tab--
     showCustomerBookingHistory(guest, bookingHistory) {
+        let sortedBookings = bookingHistory.sort((a, b) => {
+            let aDate = new Date(a.date.replace(/\//g, ",")).getTime();
+            let bDate = new Date(b.date.replace(/\//g, ",")).getTime();
+            return aDate-bDate;
+        })
         $('.guest-booking-name').text(`${guest}'s Bookings.`);
         $('.past-bookings').append(`<tr>
         <td>Date of Stay</td>
         <td>Room Number</td>
         </tr>`);
-        bookingHistory.forEach(booking => {
+        sortedBookings.forEach(booking => {
             $('.past-bookings').append(`<tr>
             <td>${booking.date.slice(5, 10)}</td>
             <td>${booking.roomNumber}</td>
-            </tr>`)
-        })
+            </tr>`);
+        });
     },
 
     showAvailableRoomsByType() {
         $('.new-booking__button').hide();
+        $('.images').hide();
         $('.single-room__button').show();
         $('.suite__button').show();
         $('.junior-suite__button').show();
@@ -136,10 +143,11 @@ const domUpdates = {
             <td>$${room.costPerNight}</td>
             <td><button class='booking__button' data-id=${room.number}>Book</button></td>
             </tr>`);
-        })
+        });
     },
 
     showRooms(className, roomType) {
+        $(`.${className}`).empty();
         $(`.${className}`).append(`<tr>
         <td>Room Number</td>
         <td>Bed Size</td>
@@ -171,7 +179,7 @@ const domUpdates = {
     confirmBooking(name, booking) {
         $('.confirm-booking-box').show();
         $('.rooms-table').hide();
-        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number ${booking.roomNumber}, on ${booking.date.slice(5, 10)}.`)
+        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number ${booking.roomNumber}, on ${booking.date.slice(5, 10)}.`);
     }
 
 }
