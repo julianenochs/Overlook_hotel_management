@@ -23,9 +23,9 @@ Features that I plan on adding in future iterations:
 
 ## Desktop Images:
 
-![Desktop_Comp](./src/overlook-splash.png)
-![Main_Comp](./src/overlook-main.png)
-![Rooms_Comp](./src/overlook-rooms.png)
+![Desktop_Comp](src/overlook-splash.png)
+![Main_Comp](src/overlook-main.png)
+![Rooms_Comp](src/overlook-rooms.png)
 
 # Author:
 
