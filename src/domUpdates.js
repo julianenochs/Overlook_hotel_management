@@ -106,12 +106,17 @@ const domUpdates = {
 
 // --Rooms Tab--
     showCustomerBookingHistory(guest, bookingHistory) {
+        let sortedBookings = bookingHistory.sort((a, b) => {
+            let aDate = new Date(a.date.replace(/\//g, ",")).getTime();
+            let bDate = new Date(b.date.replace(/\//g, ",")).getTime();
+            return aDate-bDate;
+        })
         $('.guest-booking-name').text(`${guest}'s Bookings.`);
         $('.past-bookings').append(`<tr>
         <td>Date of Stay</td>
         <td>Room Number</td>
         </tr>`);
-        bookingHistory.forEach(booking => {
+        sortedBookings.forEach(booking => {
             $('.past-bookings').append(`<tr>
             <td>${booking.date.slice(5, 10)}</td>
             <td>${booking.roomNumber}</td>
@@ -121,6 +126,7 @@ const domUpdates = {
 
     showAvailableRoomsByType() {
         $('.new-booking__button').hide();
+        $('.images').hide();
         $('.single-room__button').show();
         $('.suite__button').show();
         $('.junior-suite__button').show();
