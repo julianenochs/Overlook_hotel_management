@@ -25,7 +25,7 @@ Features that I plan on adding in future iterations:
 
 ![Desktop_Comp](src/overlook-splash.png)
 ![Main_Comp](src/overlook-main.png)
-![Rooms_Comp](file:/Users/julianenochs/turing/2mod2/overlook/src/overlook-rooms.png)
+![Rooms_Comp](Users/julianenochs/turing/2mod2/overlook/src/overlook-rooms.png)
 
 # Author:
 
