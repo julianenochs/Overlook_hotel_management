@@ -139,7 +139,6 @@ const domUpdates = {
     },
 
     showRooms(className, roomType) {
-        let dataID;
         $(`.${className}`).append(`<tr>
         <td>Room Number</td>
         <td>Bed Size</td>
@@ -158,10 +157,6 @@ const domUpdates = {
             <td><button class='booking__button' data-id=${room.number}>Book</button></td>
             </tr>`);
         });
-        $('.booking__button').on('click', function(e) {
-            dataID = $(e.target).attr('data-id')
-            return dataID
-        });
     },
 
     showBestBookingDate(date) {
@@ -170,6 +165,12 @@ const domUpdates = {
 
     showWorstBookingDate(date) {
         $('.worst-booking-date').text(`Ophelias Most Available Date for Booking: ${date.slice(5, 10)}`);
+    },
+
+    confirmBooking(name, booking) {
+        console.log('booking', booking)
+        $('.rooms-table').hide();
+        $('.confirm-booking').text(`Confirmation for ${name}, Booking Room Number: ${booking.roomNumber} on ${booking.date}.`)
     }
 
 }
