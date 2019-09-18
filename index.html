@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Unica+One&display=swap" rel="stylesheet">
+    <title>Ophelias Management</title>
+  </head>
+  <body>
+    <div class='splash-page'>
+      <h1 class='splash-header'>Ophelias Management Services</h1>
+      <button type='submit' class='splash-button'>Enter Here</button>
+    </div>
+    <div class='main'>
+      <header class='header'>
+        <h1>Ophelias</h1>
+        <div class='guest-info'>
+          <p class='guest-name-header'></p>
+          <p class='todays-date'></p>
+        </div>
+        <button class='reset'>Reset Page</button>
+      </header>
+
+    <ul class='tabs'>
+      <li class='tab-link active-tab' data-tab='tab-1'>Main</li>
+      <li class='tab-link' data-tab='tab-2'>Guests</li>
+      <li class='tab-link' data-tab='tab-3'>Rooms</li>
+      <li class='tab-link' data-tab='tab-4'>Orders</li>
+    </ul>
+
+    <!-- Main Tab -->
+    <div class='main tab-content active-tab' id='tab-1'>
+      <h2 class='rooms-available-today'></h2>
+      <p class='room-types-available'></p>
+      <h2 class='percentage-rooms-available'></h2>
+      <h2 class='revenue'></h2>
+      <div>
+        <img src='https://tr-images.condecdn.net/image/Kwrl6VypV2A/crop/1620/f/interior-waeska-bar-at-the-mandrake-hotel-fitzrovia-london-conde-nast-traveller-27sept17-pr.jpg' class='main-image1'>
+        <img src='https://qtxasset.com/styles/breakpoint_sm_default_480px_w/s3/2017-06/themandrakelobby.jpg?ALpDTqG219jM8ix3aT9A6HJsKsKacMjJ&itok=FD2c33MF' class='main-image'>
+      </div>
+    </div>
+
+    <!-- Guest Tab -->
+    <div class='guest tab-content' id='tab-2'>
+      <p class='guest-name'></p>
+      <div class='guest-search__form'>
+        <div class='no-guest-found__error primary-box'>
+          <p>
+            Sorry, we couldn't find any guests with that name. <br>
+            Add a new guest below.
+          </p>
+        </div>
+        <form onsubmit='return false'>
+          <label for='guest-search'>
+            <input type='text' class='guest-search' placeholder='Search A Guest'>
+          </label>
+        </form>
+        <button type ='submit' class='guest-search__button'>Search Guest</button>
+      </div>
+
+      <button type='submit' class='add-guest__button'>Add Guest</button>
+
+      <div class='add-guest__form'>
+        <form>
+          <label for='add-guest'>
+            <input type='text' class='add-guest' placeholder='New Guest Name'>
+          </label>
+        </form>
+        <button type='submit' class='submit-new-guest__button'>Submit Guest Name</button>
+      </div>
+    </div>
+
+    <!-- Room Tab -->
+    <div class='rooms tab-content' id='tab-3'>
+      <div class='room-tab'>
+        <h2 class='best-booking-date'></h2>
+        <h2 class='worst-booking-date'></h2>
+        <div class='images'>
+          <img src='https://media.vanityfair.com/photos/5a256079dec8295dad9fd555/master/w_690,c_limit/AH%20Mandrake%20suite%201.jpg' class='image'>
+          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQwCUtuQUfidHM5Sa2UR3Cx67yOejoeo_IslZQ3v07vuHqEEma' class='image'>
+          <img src='https://hoteldesigns.net/wp-content/uploads/2018/05/Mandrake-suite-2.jpg' class='image'>
+          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREgoBkk-bd8evVQZMYHuQdoRavVfZ3V8FS-eUb_Ab2Gu_SAzXYCA' class='image'>
+        </div>
+        <p class='guest-name'></p>
+        <button type='submit' class='new-booking__button'>New Booking</button>
+        <p class='available-rooms-by-type__button'></p>
+        <button type='submit' class='single-room__button'>Single</button>
+        <button type='submit' class='suite__button'>Suite</button>
+        <button type='submit' class='junior-suite__button'>Junior Suite</button>
+        <button type='submit' class='residential-suite__button'>Residential Suite</button>
+        <div class='table rooms-table'>
+          <p class='single suite junior-suite residential-suite'></p>
+        </div>
+        <div class='confirm-booking-box primary-box'>
+          <p class='confirm-booking'></p>
+        </div>
+      </div>
+      <div class='room-tab-2'>
+          <p class='rooms-available-by-date'></p>
+          <p class='guest-booking-name'></p>
+          <div class='table past-bookings-table'>
+            <p class='past-bookings'></p>
+          </div>
+        </div>
+    </div>
+
+    <!-- Order Tab -->
+    <div class='orders tab-content' id='tab-4'>
+      <p class='guest-name'></p>
+      <p id='daily-room-services'></p>
+      <h2> All Guest Orders: </h2>
+      <p class='show-orders-by-date'></p>
+      <h2 class='guest-orders-info'></h2>
+      <p class='guest-orders'></p>
+      <h2 class='guest-orders-total'></h2>
+      <p class='guest-orders-by-date'></p>
+      <form onsubmit='return false'>
+        <label for ='orders-by-date'>Search for orders by date:
+          <input type='date' class='orders-by-date' min='2019/07/01' max='2019/10/30'>
+          <button type='submit' class='orders-by-date__button'>Search</button>
+        </label>
+      </form>
+      <img src='https://www.sapporo.co.uk/wp-content/uploads/2017/06/Sushi-Set-sashimi-and-sushi-rolls-1024x740.jpg' class='order-image'>
+    </div>
+    <div>
+    </div>
+  <script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
