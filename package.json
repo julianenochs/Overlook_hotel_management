@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "blooming-menu": "^1.1.1",
-    "cross-fetch": "^3.0.4",
+    "cross-fetch": "^3.1.5",
     "jquery": "^3.4.1",
     "moment": "^2.24.0"
   }
